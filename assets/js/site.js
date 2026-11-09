@@ -368,8 +368,19 @@
     if (el.dataset.introDone || el.closest("[data-stagger],[data-rise3d]")) return;
     gsap.from(el, { y: 50, autoAlpha: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } });
   });
-  $$("[data-stagger]").forEach(el => gsap.from(el.children, { y: 40, autoAlpha: 0, duration: .9, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: el, start: "top 88%" } }));
-  $$("[data-rise3d]").forEach(el => gsap.from(el.children, { y: 90, rotationX: -40, autoAlpha: 0, transformPerspective: 1000, transformOrigin: "50% 100%", duration: 1.2, ease: "expo.out", stagger: .1, scrollTrigger: { trigger: el, start: "top 85%" } }));
+  // grid items: each row animates when IT scrolls into view (works for 3 columns and for
+  // the single column on phones). Transforms are cleared afterwards so hover tilt starts clean.
+  const PHONE = matchMedia("(max-width: 640px)").matches;
+  const batchIn = (items, from, to) => {
+    if (!items.length) return;
+    gsap.set(items, from);
+    ScrollTrigger.batch(items, { start: "top 92%", once: true,
+      onEnter: b => gsap.to(b, { ...to, stagger: .09, overwrite: true, clearProps: "transform,transformPerspective,transformOrigin", onComplete() { b.forEach(x => x._in = 1); } }) });
+  };
+  $$("[data-stagger]").forEach(el => batchIn([...el.children], { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .9, ease: "power3.out" }));
+  $$("[data-rise3d]").forEach(el => batchIn([...el.children],
+    PHONE ? { y: 50, autoAlpha: 0 } : { y: 70, rotationX: -18, autoAlpha: 0, transformPerspective: 1000, transformOrigin: "50% 100%" },
+    PHONE ? { y: 0, autoAlpha: 1, duration: .9, ease: "power3.out" } : { y: 0, rotationX: 0, autoAlpha: 1, duration: 1.1, ease: "expo.out" }));
 
   /* parallax + 3D clip reveals */
   $$("[data-par]").forEach(el => {
@@ -438,11 +449,14 @@
     $$("[data-tilt]").forEach(el => {
       el.insertAdjacentHTML("beforeend", '<i class="glare"></i>');
       let rx, ry;
-      el.addEventListener("pointerenter", () => { if (!rx) { gsap.set(el, { transformPerspective: 900 }); rx = gsap.quickTo(el, "rotationX", { duration: .6, ease: "power3" }); ry = gsap.quickTo(el, "rotationY", { duration: .6, ease: "power3" }); } });
-      el.addEventListener("pointermove", e => { if (!rx || gsap.isTweening(el) && !el._tiltOn) return; el._tiltOn = 1; const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; rx((.5 - y) * 12); ry((x - .5) * 14); el.style.setProperty("--gx", x * 100 + "%"); el.style.setProperty("--gy", y * 100 + "%"); });
+      const ready = () => !el.parentElement.matches("[data-rise3d]") || el._in; // wait for the entrance
+      el.addEventListener("pointermove", e => {
+        if (!ready()) return;
+        if (!rx) { gsap.set(el, { transformPerspective: 900 }); rx = gsap.quickTo(el, "rotationX", { duration: .6, ease: "power3" }); ry = gsap.quickTo(el, "rotationY", { duration: .6, ease: "power3" }); }
+        const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; rx((.5 - y) * 7); ry((x - .5) * 9); el.style.setProperty("--gx", x * 100 + "%"); el.style.setProperty("--gy", y * 100 + "%"); });
       el.addEventListener("pointerleave", () => { rx && rx(0); ry && ry(0); });
     });
-    $$(".btn, .wa, .burger, .go").forEach(b => {
+    $$(".btn, .burger").forEach(b => {
       const mx = gsap.quickTo(b, "x", { duration: .5, ease: "power3" }), my = gsap.quickTo(b, "y", { duration: .5, ease: "power3" });
       b.addEventListener("pointermove", e => { if (gsap.isTweening(b) && !b._magOn) return; b._magOn = 1; const r = b.getBoundingClientRect(); mx((e.clientX - r.left - r.width / 2) * .25); my((e.clientY - r.top - r.height / 2) * .35); });
       b.addEventListener("pointerleave", () => { mx(0); my(0); });
