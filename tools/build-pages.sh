@@ -23,9 +23,6 @@ cat <<EOF
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 EOF
-[ "$1" = home ] && cat <<'EOF'
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-EOF
 cat <<EOF
 </head>
 <body data-page="$1" $4>
@@ -43,7 +40,6 @@ cat <<'EOF'
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="assets/js/site.js"></script>
 EOF
-[ "$1" = home ] && echo '<script type="module" src="assets/js/hero3d.js"></script>'
 echo '</body>'
 echo '</html>'
 }
@@ -88,7 +84,7 @@ REVIEWS='<section class="dark pad" style="overflow:hidden">
 { head home "Casa Shine — Car Wash & Detailing in Casablanca" "Premium hand wash, interior cleaning and ceramic detailing in Casablanca. In our Maârif studio or at your door. Book on WhatsApp." "data-nocta"
 cat <<EOF
 <section class="hero">
-  <div class="hero-in" data-hero3d>
+  <div class="hero-in">
     <div class="hero-bg ph"><img src="$(U photo-1601362840469-51e4d8d58785 2200)" alt="Car covered in foam during a hand wash"></div>
     <svg class="badge-rot" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="c" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#c">Hand wash · Casablanca · Since 2019 ·</textPath></text><circle cx="60" cy="60" r="16" fill="#FFD60A"/></svg>
     <h1 data-split="intro">Casa<br><em>Shine.</em></h1>
