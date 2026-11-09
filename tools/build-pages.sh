@@ -45,12 +45,14 @@ echo '</html>'
 }
 
 phero() { # $1 crumb  $2 h1-html  $3 paragraph  $4 image-id  $5 right-side html
+local pimg=""
+[ -n "$4" ] && pimg='<div class="phero-img ph" data-clip data-par><img src="'"$(U $4 2000)"'" alt=""></div>'
 cat <<EOF
 <section class="phero"><div class="wrap">
   <div class="crumbs" data-reveal><a href="index.html">Home</a>/<span>$1</span></div>
   <h1 data-split="intro">$2</h1>
   <div class="phero-row"><p data-reveal>$3</p>$5</div>
-  ${4:+<div class="phero-img ph" data-clip data-par><img src="$(U $4 2000)" alt=""></div>}
+  $pimg
 </div></section>
 EOF
 }

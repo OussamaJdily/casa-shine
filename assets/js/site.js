@@ -21,6 +21,8 @@
   const AR = `<span class="ar">↗</span>`;
   const NAV = [["index.html", "Home"], ["about.html", "About"], ["services.html", "Services"], ["pricing.html", "Pricing"], ["team.html", "Team"], ["blog.html", "Journal"], ["contact.html", "Contact"]];
   const active = { home: "index.html", about: "about.html", services: "services.html", service: "services.html", pricing: "pricing.html", team: "team.html", blog: "blog.html", post: "blog.html", contact: "contact.html" }[page];
+  const cleanPath = p => p.replace(/\.html$/, "").replace(/\/index$/, "/") || "/";
+  const samePath = (a, b) => cleanPath(a) === cleanPath(b);
   const waLink = (msg = "") => `https://wa.me/${S.whatsapp}${msg ? "?text=" + encodeURIComponent(msg) : ""}`;
 
   /* ================= 1. CHROME ================= */
@@ -37,7 +39,7 @@
         <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
       </div>
     </header>
-    <nav class="mmenu" aria-label="Mobile">
+    <nav class="mmenu" aria-label="Mobile" data-lenis-prevent>
       <div>${NAV.map(([h, t], i) => `<a class="big" href="${h}">${t}<small>0${i + 1}</small></a>`).join("")}</div>
       <div><a href="contact.html#book" class="btn btn-y" style="margin:24px 0 16px">Book a wash ${AR}</a><div class="muted">${S.address}<br>${S.phone}</div></div>
     </nav>`);
@@ -283,6 +285,7 @@
   const burger = $("#burger");
   burger.onclick = () => { const o = document.body.classList.toggle("menu-open"); burger.setAttribute("aria-expanded", o); lenis && (o ? lenis.stop() : lenis.start()); };
   $$(".mmenu a").forEach(a => a.addEventListener("click", () => { document.body.classList.remove("menu-open"); lenis && lenis.start(); }));
+  addEventListener("keydown", e => { if (e.key === "Escape" && document.body.classList.contains("menu-open")) burger.click(); });
 
   // booking → WhatsApp
   $$("[data-book]").forEach(f => f.addEventListener("submit", e => {
@@ -359,8 +362,10 @@
   $$("[data-intro]").forEach((el, i) => introTl.from(el, { y: 40, autoAlpha: 0, duration: 1, ease: "power3.out" }, .35 + i * .1));
 
   /* reveals */
+  // page-header reveals play with the intro (after the curtain), not behind it
+  $$(".phero [data-reveal]").forEach((el, i) => { el.dataset.introDone = 1; introTl.from(el, { y: 40, autoAlpha: 0, duration: 1, ease: "power3.out" }, .3 + i * .08); });
   $$("[data-reveal]").forEach(el => {
-    if (el.closest("[data-stagger],[data-rise3d]")) return;
+    if (el.dataset.introDone || el.closest("[data-stagger],[data-rise3d]")) return;
     gsap.from(el, { y: 50, autoAlpha: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } });
   });
   $$("[data-stagger]").forEach(el => gsap.from(el.children, { y: 40, autoAlpha: 0, duration: .9, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: el, start: "top 88%" } }));
@@ -388,12 +393,15 @@
     onToggle: s => { if (!s.isActive) return; steps.forEach((x, j) => x.classList.toggle("on", j === i)); pn && (pn.style.transform = `translateY(${-i * 25}%)`); pbar && (pbar.style.width = (i + 1) * 25 + "%"); } }));
 
   /* timeline line */
+  const mm = gsap.matchMedia();
   const tl = $(".tl");
-  if (tl) { const f = $(".line-fill", tl), mob = innerWidth <= 980;
-    gsap.fromTo(f, mob ? { height: "0%" } : { width: "0%" }, { [mob ? "height" : "width"]: "100%", ease: "none", scrollTrigger: { trigger: tl, start: "top 75%", end: "bottom 60%", scrub: true } }); }
+  if (tl) {
+    const f = $(".line-fill", tl), st = { trigger: tl, start: "top 75%", end: "bottom 60%", scrub: true };
+    mm.add("(max-width: 980px)", () => { gsap.fromTo(f, { height: "0%" }, { height: "100%", ease: "none", scrollTrigger: { ...st } }); return () => gsap.set(f, { clearProps: "height" }); });
+    mm.add("(min-width: 981px)", () => { gsap.fromTo(f, { width: "0%" }, { width: "100%", ease: "none", scrollTrigger: { ...st } }); return () => gsap.set(f, { clearProps: "width" }); });
+  }
 
   /* horizontal works (desktop) */
-  const mm = gsap.matchMedia();
   mm.add("(min-width: 981px)", () => {
     const pin = $("[data-hpin]"); if (!pin) return;
     const tr = $(".htrack", pin), prog = $(".hprog i", pin);
@@ -404,14 +412,17 @@
   /* marquees driven by scroll velocity */
   $$("[data-marq]").forEach(m => {
     const t = m.firstElementChild, dir = +m.dataset.marq < 0 ? 1 : -1, speed = +m.dataset.speed || 60, skew = m.dataset.skew;
-    let x = dir > 0 ? -1 : 0, hover = false, sk = 0;
+    let x = 0, hover = false, sk = 0, half = 0, seen = true;
+    // measure once (and on resize) instead of every frame — avoids layout thrash
+    const measure = () => { const h = t.scrollWidth / 2; if (h) half = h; };
+    new ResizeObserver(measure).observe(t); addEventListener("load", measure);
+    new IntersectionObserver(es => seen = es[0].isIntersecting, { rootMargin: "200px" }).observe(m);
     m.addEventListener("mouseenter", () => hover = true); m.addEventListener("mouseleave", () => hover = false);
     gsap.ticker.add((time, dt) => {
-      const half = t.scrollWidth / 2; if (!half) return;
-      if (x === -1) x = -half;
+      if (!half) measure(); if (!half || !seen) return;
       const v = lenis ? lenis.velocity : 0;
       x += dir * (hover ? .15 : 1) * speed * (1 + Math.min(Math.abs(v), 50) / 6) * dt / 1000;
-      if (x <= -half) x += half; if (x > 0) x -= half;
+      x = ((x % half) - half) % half; // keep x in (-half, 0]
       sk += ((skew ? Math.max(-12, Math.min(12, -v * .5)) : 0) - sk) * .1;
       t.style.transform = `translate3d(${x}px,0,0)${skew ? ` skewX(${sk.toFixed(2)}deg)` : ""}`;
     });
@@ -428,12 +439,12 @@
       el.insertAdjacentHTML("beforeend", '<i class="glare"></i>');
       let rx, ry;
       el.addEventListener("pointerenter", () => { if (!rx) { gsap.set(el, { transformPerspective: 900 }); rx = gsap.quickTo(el, "rotationX", { duration: .6, ease: "power3" }); ry = gsap.quickTo(el, "rotationY", { duration: .6, ease: "power3" }); } });
-      el.addEventListener("pointermove", e => { if (!rx) return; const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; rx((.5 - y) * 12); ry((x - .5) * 14); el.style.setProperty("--gx", x * 100 + "%"); el.style.setProperty("--gy", y * 100 + "%"); });
+      el.addEventListener("pointermove", e => { if (!rx || gsap.isTweening(el) && !el._tiltOn) return; el._tiltOn = 1; const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; rx((.5 - y) * 12); ry((x - .5) * 14); el.style.setProperty("--gx", x * 100 + "%"); el.style.setProperty("--gy", y * 100 + "%"); });
       el.addEventListener("pointerleave", () => { rx && rx(0); ry && ry(0); });
     });
     $$(".btn, .wa, .burger, .go").forEach(b => {
       const mx = gsap.quickTo(b, "x", { duration: .5, ease: "power3" }), my = gsap.quickTo(b, "y", { duration: .5, ease: "power3" });
-      b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); mx((e.clientX - r.left - r.width / 2) * .25); my((e.clientY - r.top - r.height / 2) * .35); });
+      b.addEventListener("pointermove", e => { if (gsap.isTweening(b) && !b._magOn) return; b._magOn = 1; const r = b.getBoundingClientRect(); mx((e.clientX - r.left - r.width / 2) * .25); my((e.clientY - r.top - r.height / 2) * .35); });
       b.addEventListener("pointerleave", () => { mx(0); my(0); });
     });
     const cur = $("#cur"), cx = gsap.quickTo(cur, "x", { duration: .35, ease: "power3" }), cy = gsap.quickTo(cur, "y", { duration: .35, ease: "power3" });
@@ -479,21 +490,27 @@
     gsap.fromTo(curtain, { yPercent: 0 }, { yPercent: -100, duration: .9, ease: "expo.inOut", delay: .05, onStart: () => setTimeout(runIntro, 300), onComplete: () => curtain.style.visibility = "hidden" });
   } else runIntro();
 
-  // safety net: if the animation clock never starts (blocked rAF), show the page anyway
-  setTimeout(() => {
-    if (gsap.ticker.frame > 2) return;
-    gsap.ticker.useRAF(false);
-    $("#loader") && $("#loader").remove();
-    if (curtain) { gsap.set(curtain, { yPercent: -100 }); curtain.style.visibility = "hidden"; }
-    introTl.progress(1); lenis && lenis.start();
-  }, 2500);
+  // safety net: if the animation clock is stalled (throttled/blocked rAF while the page is
+  // visible), drive the GSAP ticker by hand so the curtain lifts and reveals still play
+  let lastFrame = -1;
+  setInterval(() => {
+    if (document.hidden) return;
+    if (gsap.ticker.frame === lastFrame) gsap.ticker.tick();
+    lastFrame = gsap.ticker.frame;
+  }, 100);
 
   document.addEventListener("click", e => {
     const a = e.target.closest("a"); if (!a || !curtain) return;
     const href = a.getAttribute("href") || "";
     if (a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0 || href.startsWith("#") || /^(mailto|tel|https?):/.test(href)) return;
     if (a.origin !== location.origin) return;
-    if (a.pathname === location.pathname && a.search === location.search && a.hash) return;
+    // same page (Vercel serves /contact for contact.html) → just scroll to the anchor
+    if (samePath(a.pathname, location.pathname) && a.search === location.search) {
+      if (!a.hash) return;
+      const t = $(a.hash); if (!t) return;
+      e.preventDefault(); lenis ? lenis.scrollTo(t, { offset: -80 }) : t.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
     e.preventDefault();
     lenis && lenis.stop();
     curtain.style.visibility = "visible";

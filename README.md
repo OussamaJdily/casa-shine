@@ -1,7 +1,7 @@
 # Casa Shine — Casablanca car wash website
 
 Multi-page static site with smooth scrolling (Lenis), scroll animations (GSAP),
-3D tilt cards and a WebGL bubble hero (Three.js). No build step needed.
+3D tilt cards. No build step needed.
 
 ## Edit content
 Everything (phone, WhatsApp, address, prices, services, team, reviews, articles)
