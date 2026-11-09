@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zellij Car Spa — Casablanca</title>
+<meta name="description" content="Premium car wash & detailing in Casablanca. In-studio in Maârif or at your door anywhere in Casa. Book on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1513;
+  --ink-2:#13211E;
+  --ink-3:#1C2E2A;
+  --sand:#F4EFE6;
+  --sand-2:#EAE2D4;
+  --paper:#FFFDF8;
+  --teal:#0F7C6C;
+  --teal-2:#14A08B;
+  --saffron:#F2A93B;
+  --saffron-2:#FFC266;
+  --muted:#6B746F;
+  --line:rgba(11,21,19,.12);
+  --line-d:rgba(255,255,255,.12);
+  --r:22px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--sand);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.03em;line-height:1.02}
+.wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+section{position:relative}
+
+/* ---------- image slots (gradient fallback if a photo fails) ---------- */
+.ph{position:relative;overflow:hidden;background:
+  radial-gradient(120% 90% at 20% 10%,#2a4a43 0,transparent 60%),
+  radial-gradient(90% 80% at 90% 100%,#5c4520 0,transparent 55%),var(--ink-2)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),opacity .6s}
+.ph img.broken{opacity:0}
+
+/* ---------- preloader ---------- */
+#loader{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-items:center;transition:clip-path 1s var(--ease) .2s;clip-path:inset(0 0 0 0)}
+#loader.done{clip-path:inset(0 0 100% 0)}
+#loader .lw{display:flex;gap:14px;align-items:center;color:var(--sand)}
+#loader .count{font-family:"Bricolage Grotesque";font-size:clamp(64px,12vw,160px);font-weight:800;letter-spacing:-.05em;min-width:3ch;text-align:right}
+#loader .lbl{font-size:13px;text-transform:uppercase;letter-spacing:.2em;opacity:.6}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1240px,100% - 32px);display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 18px;border-radius:999px;background:rgba(11,21,19,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--sand);transition:transform .5s var(--ease)}
+.nav.hide{transform:translate(-50%,-140%)}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque";font-weight:800;font-size:19px;letter-spacing:-.02em}
+.logo svg{width:30px;height:30px}
+.nav ul{display:flex;gap:4px;list-style:none}
+.nav ul a{display:block;padding:9px 14px;border-radius:999px;font-size:14px;opacity:.8;transition:.25s}
+.nav ul a:hover{opacity:1;background:rgba(255,255,255,.08)}
+.nav .right{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;font-weight:600;font-size:15px;position:relative;overflow:hidden;isolation:isolate;transition:color .35s var(--ease)}
+.btn .ar{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;transition:transform .4s var(--ease)}
+.btn:hover .ar{transform:rotate(-45deg)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;transform:translateY(101%);border-radius:inherit;transition:transform .45s var(--ease)}
+.btn:hover::before{transform:none}
+.btn-sf{background:var(--saffron);color:var(--ink)}
+.btn-sf .ar{background:var(--ink);color:var(--saffron)}
+.btn-sf::before{background:var(--saffron-2)}
+.btn-ink{background:var(--ink);color:var(--sand)}
+.btn-ink .ar{background:var(--saffron);color:var(--ink)}
+.btn-ink::before{background:var(--teal)}
+.btn-ghost{border:1px solid currentColor}
+.btn-ghost::before{background:var(--sand)}
+.btn-ghost:hover{color:var(--ink)}
+.burger{display:none;width:44px;height:44px;border-radius:50%;background:var(--saffron);color:var(--ink);place-items:center}
+.burger span{display:block;width:18px;height:2px;background:currentColor;margin:4px auto;transition:.3s}
+.menu-open .burger span:first-child{transform:translateY(3px) rotate(45deg)}
+.menu-open .burger span:last-child{transform:translateY(-3px) rotate(-45deg)}
+.mmenu{position:fixed;inset:0;z-index:45;background:var(--ink);color:var(--sand);padding:110px 24px 30px;display:flex;flex-direction:column;justify-content:space-between;clip-path:circle(0 at calc(100% - 46px) 40px);transition:clip-path .7s var(--ease)}
+.menu-open .mmenu{clip-path:circle(150% at calc(100% - 46px) 40px)}
+.mmenu a.big{display:block;font-family:"Bricolage Grotesque";font-size:44px;font-weight:700;letter-spacing:-.03em;padding:4px 0;border-bottom:1px solid var(--line-d)}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;padding:14px;display:flex}
+.hero-in{position:relative;flex:1;border-radius:28px;overflow:hidden;color:var(--sand);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,4vw,48px)}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{transform:scale(1.15)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,21,19,.35) 0,rgba(11,21,19,.1) 40%,rgba(11,21,19,.85) 100%)}
+.hero h1{position:relative;font-size:clamp(64px,15vw,230px);font-weight:800;letter-spacing:-.06em;line-height:.85;margin-bottom:28px}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .ln span{display:inline-block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.loaded .hero h1 .ln span{transform:none}
+.loaded .hero h1 .ln:nth-child(2) span{transition-delay:.12s}
+.hero h1 em{font-style:normal;color:var(--saffron)}
+.hero-row{position:relative;display:flex;gap:18px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap}
+.hero-card{display:flex;gap:16px;align-items:center;background:rgba(255,253,248,.95);color:var(--ink);border-radius:20px;padding:10px 22px 10px 10px;max-width:420px;opacity:0;transform:translateY(30px);transition:1s var(--ease) .5s}
+.hero-card .ph{width:92px;height:92px;border-radius:14px;flex:none}
+.hero-card small{color:var(--muted);font-size:13px}
+.hero-card b{display:block;font-family:"Bricolage Grotesque";font-size:22px;letter-spacing:-.02em}
+.hero-side{max-width:360px;opacity:0;transform:translateY(30px);transition:1s var(--ease) .65s}
+.hero-side p{opacity:.85;margin-bottom:18px}
+.loaded .hero-card,.loaded .hero-side{opacity:1;transform:none}
+.badge-rot{position:absolute;right:clamp(20px,4vw,48px);top:clamp(90px,14vw,120px);width:118px;height:118px;animation:spin 16s linear infinite}
+.badge-rot text{font-size:10.5px;letter-spacing:.24em;fill:var(--sand);text-transform:uppercase;font-family:Inter;font-weight:600}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- common ---------- */
+.pad{padding:clamp(80px,11vw,150px) 0}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 10px;border-radius:999px;font-size:13px;font-weight:600;background:var(--ink);color:var(--sand)}
+.tag::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--saffron);box-shadow:0 0 0 4px rgba(242,169,59,.25);animation:pulse 2s infinite}
+.dark .tag{background:var(--saffron);color:var(--ink)}
+.dark .tag::before{background:var(--ink);box-shadow:0 0 0 4px rgba(11,21,19,.2)}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(242,169,59,0)}}
+.h2{font-size:clamp(40px,6.4vw,86px);margin:20px 0 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:56px}
+.dark{background:var(--ink);color:var(--sand);border-radius:32px;margin:0 14px}
+.dark .muted{color:rgba(244,239,230,.6)}
+.muted{color:var(--muted)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+.words .w{display:inline-block;opacity:.16;transition:opacity .4s}
+.words .w.on{opacity:1}
+
+/* ---------- about ---------- */
+.about-txt{font-family:"Bricolage Grotesque";font-weight:600;font-size:clamp(30px,4.4vw,60px);letter-spacing:-.03em;line-height:1.08;margin:26px 0 30px;max-width:1100px}
+.about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:28px;align-items:end;margin-top:60px}
+.about-img{height:clamp(320px,48vw,620px);border-radius:var(--r)}
+.about-img img{transform:scale(1.2)}
+.stats{display:grid;gap:14px}
+.stat{background:var(--paper);border-radius:var(--r);padding:26px}
+.stat b{font-family:"Bricolage Grotesque";font-size:clamp(48px,6vw,72px);letter-spacing:-.05em;line-height:1;display:block}
+.stat b sup{font-size:.45em;color:var(--teal)}
+
+/* marquee */
+.marq{overflow:hidden;padding:46px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq-t{display:flex;gap:14px;width:max-content;animation:mq 32s linear infinite}
+.marq:hover .marq-t{animation-play-state:paused}
+.chip{display:flex;align-items:center;gap:12px;padding:20px 30px;border:1px solid var(--line);border-radius:18px;font-family:"Bricolage Grotesque";font-weight:700;font-size:24px;letter-spacing:-.02em;white-space:nowrap;background:var(--paper)}
+.chip i{width:10px;height:10px;border-radius:3px;background:var(--teal);transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- services ---------- */
+.svc{border-top:1px solid var(--line-d)}
+.svc:last-child{border-bottom:1px solid var(--line-d)}
+.svc-h{width:100%;display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:20px;padding:30px 4px;text-align:left}
+.svc-h .n{font-size:14px;opacity:.5;font-weight:600}
+.svc-h h3{font-size:clamp(28px,4vw,52px);transition:transform .5s var(--ease),color .3s}
+.svc-h:hover h3{transform:translateX(12px);color:var(--saffron)}
+.svc-h .pm{width:52px;height:52px;border-radius:50%;border:1px solid var(--line-d);display:grid;place-items:center;transition:.4s var(--ease)}
+.svc.open .pm{background:var(--saffron);color:var(--ink);transform:rotate(45deg);border-color:var(--saffron)}
+.svc-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.svc.open .svc-b{grid-template-rows:1fr}
+.svc-b>div{overflow:hidden}
+.svc-in{display:grid;grid-template-columns:80px 1fr 1fr;gap:20px;padding:0 4px 36px}
+.svc-in .ph{border-radius:18px;height:300px}
+.svc-in p{font-size:18px;margin-bottom:22px}
+.ticks{list-style:none;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:center}
+.ticks li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;background:var(--saffron) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B1513' stroke-width='3'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat}
+.svc-price{margin-top:24px;font-family:"Bricolage Grotesque";font-size:20px}
+.svc-price b{color:var(--saffron);font-size:28px}
+
+/* ---------- process ---------- */
+.proc{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.proc-sticky{position:sticky;top:110px;align-self:start}
+.proc-num{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(120px,18vw,240px);letter-spacing:-.07em;line-height:.8;color:var(--teal);margin-top:30px;height:.82em;overflow:hidden}
+.proc-num div{transition:transform .7s var(--ease)}
+.proc-num span{display:block;height:1em;line-height:.95}
+.bar{height:4px;background:var(--sand-2);border-radius:4px;margin-top:30px;overflow:hidden}
+.bar i{display:block;height:100%;width:25%;background:var(--saffron);transition:width .6s var(--ease)}
+.step{padding:40px 0;border-bottom:1px solid var(--line);opacity:.3;transition:opacity .5s}
+.step.on{opacity:1}
+.step h3{font-size:clamp(28px,3.4vw,42px);margin-bottom:12px;display:flex;gap:14px;align-items:baseline}
+.step h3 small{font-family:Inter;font-size:14px;color:var(--teal);font-weight:600;letter-spacing:0}
+.step p{font-size:18px;max-width:460px}
+
+/* ---------- works ---------- */
+.works-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:none;cursor:grab}
+.works-track::-webkit-scrollbar{display:none}
+.work{flex:0 0 min(520px,82vw);scroll-snap-align:start}
+.work .ph{height:min(600px,100vw);border-radius:var(--r)}
+.work:hover .ph img{transform:scale(1.06)}
+.work h4{font-size:28px;margin:18px 0 10px}
+.work dl{display:flex;gap:28px;font-size:14px}
+.work dt{opacity:.55}
+.work dd{font-weight:600}
+.arrows{display:flex;gap:10px}
+.arrows button{width:54px;height:54px;border-radius:50%;border:1px solid var(--line-d);display:grid;place-items:center;transition:.3s}
+.arrows button:hover{background:var(--saffron);color:var(--ink);border-color:var(--saffron)}
+
+/* ---------- why ---------- */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.bx{border-radius:var(--r);padding:28px;background:var(--paper);position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:space-between}
+.bx h3{font-size:30px;margin-bottom:10px}
+.b1{grid-column:span 5;background:var(--teal);color:var(--sand)}
+.b2{grid-column:span 7;padding:0;color:var(--sand)}
+.b2 .ph{position:absolute;inset:0}
+.b2 .ov{position:relative;padding:28px;margin-top:auto;background:linear-gradient(0deg,rgba(11,21,19,.85),transparent)}
+.b3{grid-column:span 4;background:var(--saffron)}
+.b3 b{font-family:"Bricolage Grotesque";font-size:clamp(60px,7vw,96px);letter-spacing:-.05em;line-height:.9}
+.b4{grid-column:span 8}
+.b4 .ticks{grid-template-columns:1fr 1fr;margin-top:20px}
+.zell{position:absolute;right:-60px;bottom:-60px;width:240px;opacity:.18;animation:spin 40s linear infinite}
+
+/* ---------- pricing ---------- */
+.tabs{display:inline-flex;gap:2px;padding:5px;border-radius:999px;background:var(--paper);border:1px solid var(--line);position:relative;max-width:100%}
+.tabs button{white-space:nowrap;padding:11px clamp(11px,2.6vw,20px);border-radius:999px;font-weight:600;font-size:14px;position:relative;z-index:1;transition:color .3s}
+.tabs button.on{color:var(--sand)}
+.tabs .pill{position:absolute;top:5px;height:calc(100% - 10px);border-radius:999px;background:var(--ink);transition:.5s var(--ease)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.plan{background:var(--paper);border-radius:var(--r);padding:30px;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .5s var(--ease)}
+.plan:hover{transform:translateY(-6px)}
+.plan.hot{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.plan .pt{display:flex;justify-content:space-between;align-items:center}
+.plan h3{font-size:28px}
+.plan .pop{font-size:12px;font-weight:700;background:var(--saffron);color:var(--ink);padding:5px 10px;border-radius:999px}
+.plan .pr{font-family:"Bricolage Grotesque";font-size:64px;letter-spacing:-.05em;margin:22px 0 4px;line-height:1}
+.plan .pr small{font-size:18px;letter-spacing:0;opacity:.6;font-family:Inter}
+.plan .pr span{display:inline-block;transition:transform .4s var(--ease),opacity .4s}
+.plan .pr span.flip{transform:translateY(-20px);opacity:0}
+.plan p{font-size:15px;opacity:.7;margin-bottom:22px}
+.plan .ticks{margin:22px 0 28px;font-size:15px}
+.plan .btn{margin-top:auto;justify-content:space-between}
+
+/* ---------- testimonials ---------- */
+.tst-row{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.tst-t{display:flex;gap:14px;width:max-content;animation:mq 50s linear infinite;padding:7px 0}
+.tst-row.rev .tst-t{animation-direction:reverse}
+.tst-row:hover .tst-t{animation-play-state:paused}
+.tc{width:380px;background:var(--ink-2);border:1px solid var(--line-d);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:22px}
+.tc q{font-family:"Bricolage Grotesque";font-size:22px;line-height:1.2;letter-spacing:-.02em;quotes:none}
+.tc .who{display:flex;gap:12px;align-items:center;font-size:14px}
+.tc .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:var(--ink);background:var(--saffron)}
+.stars{color:var(--saffron);letter-spacing:3px}
+
+/* ---------- before / after ---------- */
+.ba{position:relative;height:clamp(340px,56vw,680px);border-radius:28px;overflow:hidden;user-select:none;touch-action:pan-y;cursor:ew-resize}
+.ba .ph{position:absolute;inset:0}
+.ba .before{clip-path:inset(0 50% 0 0)}
+.ba .before img{filter:grayscale(.55) brightness(.62) sepia(.5) contrast(.9)}
+.ba .dirt{position:absolute;inset:0;background:radial-gradient(circle at 30% 60%,rgba(90,60,20,.45),transparent 40%),radial-gradient(circle at 70% 30%,rgba(80,60,30,.35),transparent 35%);mix-blend-mode:multiply}
+.ba .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--sand);transform:translateX(-1px)}
+.ba .knob{position:absolute;top:50%;left:50%;width:64px;height:64px;border-radius:50%;background:var(--saffron);transform:translate(-50%,-50%);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.ba .lab{position:absolute;top:20px;padding:8px 14px;border-radius:999px;background:rgba(11,21,19,.7);color:var(--sand);font-size:13px;font-weight:600;backdrop-filter:blur(8px)}
+
+/* ---------- zones ---------- */
+.zones{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.zones span{padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-weight:500;transition:.3s}
+.zones span:hover{background:var(--teal);color:var(--sand);border-color:var(--teal)}
+
+/* ---------- blog ---------- */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.post .ph{height:300px;border-radius:var(--r)}
+.post:hover .ph img{transform:scale(1.06)}
+.post .meta{display:flex;gap:10px;font-size:13px;color:var(--muted);margin:16px 0 8px}
+.post h4{font-size:24px;line-height:1.12;transition:color .3s}
+.post:hover h4{color:var(--teal)}
+
+/* ---------- book ---------- */
+.book{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.book h2{font-size:clamp(48px,7.5vw,110px)}
+form{background:var(--ink-2);border:1px solid var(--line-d);padding:28px;border-radius:var(--r);display:grid;grid-template-columns:1fr 1fr;gap:12px}
+form label{display:grid;gap:6px;font-size:13px;opacity:.85}
+form .full{grid-column:1/-1}
+input,select{font:inherit;width:100%;background:var(--ink);color:var(--sand);border:1px solid var(--line-d);border-radius:12px;padding:13px 14px;outline:none;transition:border-color .3s}
+input:focus,select:focus{border-color:var(--saffron)}
+form .btn{justify-content:center}
+.note{font-size:13px;opacity:.55;text-align:center}
+
+/* ---------- footer ---------- */
+footer{padding:80px 0 30px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:30px}
+footer h5{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:16px;font-weight:600}
+footer ul{list-style:none;display:grid;gap:8px}
+footer ul a:hover{color:var(--teal)}
+.news{display:flex;margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px}
+.news input{background:none;color:var(--ink);border:0;padding:10px 14px}
+.giant{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(70px,19.5vw,290px);letter-spacing:-.07em;line-height:.8;margin-top:70px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.giant span{display:inline-block;transform:translateY(100%);transition:transform 1.2s var(--ease)}
+.giant.in span{transform:none}
+.fbot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;margin-top:24px;font-size:14px;color:var(--muted)}
+
+/* whatsapp float */
+.wa{position:fixed;right:18px;bottom:18px;z-index:40;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);transform:scale(0);transition:transform .5s var(--ease)}
+.loaded .wa{transform:scale(1)}
+.wa:hover{transform:scale(1.08)}
+
+/* cursor */
+.cur{position:fixed;top:0;left:0;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:var(--saffron);color:var(--ink);display:grid;place-items:center;font-size:13px;font-weight:700;pointer-events:none;z-index:60;transform:scale(0);transition:transform .35s var(--ease)}
+.cur.on{transform:scale(1)}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .nav ul,.nav .right .btn{display:none}
+  .burger{display:grid}
+  .about-grid,.proc,.book{grid-template-columns:1fr}
+  .proc-sticky{position:relative;top:0}
+  .proc-num{display:none}
+  .step{opacity:1}
+  .plans,.posts{grid-template-columns:1fr}
+  .b1,.b2,.b3,.b4{grid-column:span 12}
+  .b2{min-height:340px}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .svc-in{grid-template-columns:1fr}
+  .svc-in>span{display:none}
+  .badge-rot{display:none}
+}
+@media (max-width:600px){
+  .svc-h{grid-template-columns:40px 1fr auto;gap:12px}
+  .svc-h .pm{width:42px;height:42px}
+  .b4 .ticks{grid-template-columns:1fr}
+  form{grid-template-columns:1fr;padding:20px}
+  .fgrid{grid-template-columns:1fr}
+  .tc{width:300px}
+  .hero-card b{font-size:19px}
+  .dark{margin:0 8px;border-radius:24px}
+  .hero{padding:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv,.hero h1 .ln span,.hero-card,.hero-side,.giant span{opacity:1;transform:none}
+  .words .w{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true"><div class="lw"><div class="count" id="cnt">0</div><div class="lbl">Zellij<br>Car Spa<br>Casablanca</div></div></div>
+<div class="cur" id="cur">Drag</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="Zellij Car Spa home">
+    <svg viewBox="0 0 40 40" fill="none"><path d="M20 2l5.3 7.2 8.9-.9-.9 8.9L40 20l-6.7 2.8.9 8.9-8.9-.9L20 38l-5.3-7.2-8.9.9.9-8.9L0 20l6.7-2.8-.9-8.9 8.9.9z" fill="#F2A93B"/><circle cx="20" cy="20" r="6.5" fill="#0B1513"/><path d="M14 22c3 2 9 2 12 0" stroke="#F2A93B" stroke-width="2" stroke-linecap="round"/></svg>
+    Zellij
+  </a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#zones">Zones</a></li>
+    <li><a href="#blog">Journal</a></li>
+  </ul>
+  <div class="right">
+    <a href="#book" class="btn btn-sf">Book a wash <span class="ar">↗</span></a>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mmenu" aria-label="Mobile">
+  <div>
+    <a class="big" href="#about">About</a>
+    <a class="big" href="#services">Services</a>
+    <a class="big" href="#pricing">Pricing</a>
+    <a class="big" href="#zones">Zones</a>
+    <a class="big" href="#book">Book</a>
+  </div>
+  <div class="muted">Maârif, Casablanca · +212 600 000 000</div>
+</nav>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-bg ph" data-par="0.25"><img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=2000&q=80" alt="Car covered in foam during a hand wash"></div>
+    <svg class="badge-rot" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="c" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#c">Hand wash · Casablanca · Since 2019 ·</textPath></text><circle cx="60" cy="60" r="16" fill="#F2A93B"/></svg>
+    <h1><span class="ln"><span>Shine like</span></span><span class="ln"><span><em>Casa.</em></span></span></h1>
+    <div class="hero-row">
+      <div class="hero-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=300&q=80" alt=""></div>
+        <div><small>Book on WhatsApp — reply in 10 min</small><b>+212 600 000 000</b></div>
+      </div>
+      <div class="hero-side">
+        <p>Hand wash, interior care and ceramic detailing — in our Maârif studio or at your door, anywhere in Casablanca.</p>
+        <a href="#book" class="btn btn-sf">Book your wash <span class="ar">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="pad" id="about">
+  <div class="wrap">
+    <span class="tag rv">About us</span>
+    <p class="about-txt words" id="words">Born on the boulevards of Casablanca, we treat every car like a piece of zellige: patient hands, the right products, and attention to every last tile — so you leave cleaner than the Corniche at sunrise.</p>
+    <div class="about-grid">
+      <div class="stats">
+        <div class="stat rv"><b data-count="12400">0</b><span class="muted">cars washed since 2019</span></div>
+        <div class="stat rv rv-d1"><b><span data-count="4.9" data-dec="1">0</span><sup>★</sup></b><span class="muted">average from 860+ Google reviews</span></div>
+        <div class="stat rv rv-d2"><b><span data-count="45">0</span><sup>min</sup></b><span class="muted">for a full premium wash</span></div>
+      </div>
+      <div class="about-img ph rv" data-par="0.12"><img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=1600&q=80" alt="Detailer polishing a car" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-label="Brands we care for">
+  <div class="marq-t">
+    <div class="chip"><i></i>Dacia</div><div class="chip"><i></i>Renault</div><div class="chip"><i></i>Mercedes-Benz</div><div class="chip"><i></i>Peugeot</div><div class="chip"><i></i>BMW</div><div class="chip"><i></i>Range Rover</div><div class="chip"><i></i>Toyota</div><div class="chip"><i></i>Audi</div><div class="chip"><i></i>Hyundai</div><div class="chip"><i></i>Porsche</div>
+    <div class="chip"><i></i>Dacia</div><div class="chip"><i></i>Renault</div><div class="chip"><i></i>Mercedes-Benz</div><div class="chip"><i></i>Peugeot</div><div class="chip"><i></i>BMW</div><div class="chip"><i></i>Range Rover</div><div class="chip"><i></i>Toyota</div><div class="chip"><i></i>Audi</div><div class="chip"><i></i>Hyundai</div><div class="chip"><i></i>Porsche</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="dark pad" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="tag rv">Services</span><h2 class="h2 rv rv-d1">Five ways<br>to fall in love again.</h2></div>
+      <p class="muted rv" style="max-width:340px">Every service uses pH-neutral shampoo, the two-bucket method and microfibre only. No brushes, no swirls.</p>
+    </div>
+    <div class="svcs" id="svcs"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="pad" id="process">
+  <div class="wrap proc">
+    <div class="proc-sticky">
+      <span class="tag rv">How it works</span>
+      <h2 class="h2 rv rv-d1">From dusty<br>to dazzling.</h2>
+      <div class="proc-num" aria-hidden="true"><div id="pn"><span>01</span><span>02</span><span>03</span><span>04</span></div></div>
+      <div class="bar"><i id="pbar"></i></div>
+    </div>
+    <div>
+      <div class="step on"><h3><small>01</small>Book in 30 seconds</h3><p class="muted">Pick a service and a time on WhatsApp or the form below. Studio or doorstep — your choice.</p></div>
+      <div class="step"><h3><small>02</small>We arrive or you drop in</h3><p class="muted">Our mobile van carries its own water and power, so we can wash in a parking lot, a villa driveway or an office basement.</p></div>
+      <div class="step"><h3><small>03</small>Hands-on care</h3><p class="muted">Snow foam, two-bucket hand wash, wheels and arches, then a full interior pass with steam where needed.</p></div>
+      <div class="step"><h3><small>04</small>Inspection &amp; photos</h3><p class="muted">We check every panel under light and send you before/after photos. Not happy? We redo it, free.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section class="dark pad" id="works">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="tag rv">Recent work</span><h2 class="h2 rv rv-d1">Fresh off<br>the bay.</h2></div>
+      <div class="arrows"><button id="wPrev" aria-label="Previous">←</button><button id="wNext" aria-label="Next">→</button></div>
+    </div>
+  </div>
+  <div class="wrap"><div class="works-track" id="works-track"></div></div>
+</section>
+
+<!-- WHY -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="tag rv">Why Zellij</span><h2 class="h2 rv rv-d1">Care you can<br>actually see.</h2></div></div>
+    <div class="bento">
+      <div class="bx b1 rv">
+        <svg class="zell" viewBox="0 0 40 40"><path d="M20 2l5.3 7.2 8.9-.9-.9 8.9L40 20l-6.7 2.8.9 8.9-8.9-.9L20 38l-5.3-7.2-8.9.9.9-8.9L0 20l6.7-2.8-.9-8.9 8.9.9z" fill="#F4EFE6"/></svg>
+        <div><h3>Water-smart washing</h3><p style="opacity:.85">Our rinseless technique uses under 20 litres per car — about a tenth of a jet wash. Good for your paint, better for Morocco.</p></div>
+        <a href="#book" class="btn btn-sf" style="align-self:flex-start;margin-top:22px">Book a service <span class="ar">↗</span></a>
+      </div>
+      <div class="bx b2 rv rv-d1">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1619405399517-d7fce0f13302?auto=format&fit=crop&w=1400&q=80" alt="Detailer cleaning a car interior" loading="lazy"></div>
+        <div class="ov"><h3>A trained team, not a hose</h3><p style="opacity:.85">Every washer completes 3 weeks of in-house training before touching a customer car.</p></div>
+      </div>
+      <div class="bx b3 rv">
+        <b data-count="98">0</b><b style="font-size:.5em">%</b>
+        <p><strong>of customers rebook</strong> within 60 days. We'd love you to be next.</p>
+      </div>
+      <div class="bx b4 rv rv-d1">
+        <h3>What's always included</h3>
+        <ul class="ticks">
+          <li>Insured work on every vehicle</li><li>Photos before &amp; after</li>
+          <li>Eco, pH-neutral products</li><li>Free re-do guarantee</li>
+          <li>Pay cash, card or transfer</li><li>Arabic, French &amp; English spoken</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pad" id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="tag rv">Pricing</span><h2 class="h2 rv rv-d1">Clear prices.<br>No surprises.</h2></div>
+      <div class="tabs rv" id="tabs"><span class="pill"></span></div>
+    </div>
+    <div class="plans" id="plans"></div>
+    <p class="muted" style="margin-top:18px;font-size:14px">Prices in MAD, VAT included. Doorstep service +40 MAD anywhere inside Casablanca.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="dark pad" id="reviews" style="overflow:hidden">
+  <div class="wrap"><div class="sec-head"><div><span class="tag rv">Reviews</span><h2 class="h2 rv rv-d1">Casa has spoken.</h2></div><div class="rv"><span class="stars">★★★★★</span> <span class="muted">4.9 on Google</span></div></div></div>
+  <div class="tst-row"><div class="tst-t" id="t1"></div></div>
+  <div class="tst-row rev" style="margin-top:6px"><div class="tst-t" id="t2"></div></div>
+</section>
+
+<!-- BEFORE AFTER -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="tag rv">Before &amp; after</span><h2 class="h2 rv rv-d1">Drag to see<br>the difference.</h2></div><a href="#book" class="btn btn-ink rv">Book now <span class="ar">↗</span></a></div>
+    <div class="ba rv" id="ba">
+      <div class="ph after"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80" alt="Clean shiny sports car" loading="lazy"></div>
+      <div class="ph before"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy"><div class="dirt"></div></div>
+      <span class="lab" style="left:20px">Before</span><span class="lab" style="right:20px">After</span>
+      <div class="handle"></div>
+      <div class="knob" aria-hidden="true">⇆</div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONES -->
+<section class="pad" id="zones" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag rv">Where we go</span>
+    <h2 class="h2 rv rv-d1">Everywhere in Casa.</h2>
+    <p class="muted rv" style="max-width:520px;margin-top:16px">Studio at Maârif. Our vans cover the whole city 7 days a week, 8:00 – 21:00.</p>
+    <div class="zones rv">
+      <span>Maârif</span><span>Anfa</span><span>Ain Diab</span><span>Gauthier</span><span>Racine</span><span>Bourgogne</span><span>Californie</span><span>Sidi Maarouf</span><span>CIL</span><span>Oasis</span><span>Casa Finance City</span><span>Bouskoura</span><span>Dar Bouazza</span><span>Ain Sebaâ</span><span>Hay Hassani</span>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="pad" id="blog" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="tag rv">Journal</span><h2 class="h2 rv rv-d1">Tips for the<br>Casa driver.</h2></div></div>
+    <div class="posts">
+      <a href="#" class="post rv"><div class="ph"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div><div class="meta"><span>Sara B.</span>·<span>Oct 28, 2026</span></div><h4>Sea salt &amp; your paint: why Ain Diab cars need a wash every 10 days</h4></a>
+      <a href="#" class="post rv rv-d1"><div class="ph"><img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div><div class="meta"><span>Youssef A.</span>·<span>Oct 12, 2026</span></div><h4>Chergui season: protecting your car from sand and dust</h4></a>
+      <a href="#" class="post rv rv-d2"><div class="ph"><img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div><div class="meta"><span>Imane K.</span>·<span>Sep 30, 2026</span></div><h4>Is ceramic coating worth it in Morocco? An honest answer</h4></a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="dark pad" id="book">
+  <div class="wrap book">
+    <div>
+      <span class="tag rv">Book</span>
+      <h2 class="rv rv-d1" style="margin-top:20px">Your car<br>deserves it.</h2>
+      <p class="muted rv rv-d2" style="max-width:420px;margin-top:20px">Send the form and WhatsApp opens with your request ready to send. We confirm in about 10 minutes.</p>
+    </div>
+    <form id="bform" class="rv">
+      <label>Name<input name="name" required placeholder="Your name"></label>
+      <label>Phone<input name="phone" required placeholder="06 00 00 00 00" inputmode="tel"></label>
+      <label>Service<select name="service" id="fsvc"></select></label>
+      <label>Vehicle<select name="car"><option>Citadine</option><option>Berline</option><option>SUV</option><option>4x4 / Luxury</option></select></label>
+      <label>Neighbourhood<input name="zone" placeholder="e.g. Maârif" list="zl"></label>
+      <label>Date<input name="date" type="date"></label>
+      <label class="full">Where<select name="where"><option>At your studio (Maârif)</option><option>At my place (+40 MAD)</option></select></label>
+      <button class="btn btn-sf full" type="submit">Send on WhatsApp <span class="ar">↗</span></button>
+      <p class="note full">No payment now — pay after the wash.</p>
+    </form>
+    <datalist id="zl"><option>Maârif</option><option>Anfa</option><option>Ain Diab</option><option>Gauthier</option><option>Racine</option><option>Bourgogne</option><option>Californie</option><option>Sidi Maarouf</option><option>CIL</option><option>Bouskoura</option></datalist>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a href="#top" class="logo" style="color:var(--ink)"><svg viewBox="0 0 40 40" width="30" height="30"><path d="M20 2l5.3 7.2 8.9-.9-.9 8.9L40 20l-6.7 2.8.9 8.9-8.9-.9L20 38l-5.3-7.2-8.9.9.9-8.9L0 20l6.7-2.8-.9-8.9 8.9.9z" fill="#F2A93B"/><circle cx="20" cy="20" r="6.5" fill="#0B1513"/></svg>Zellij Car Spa</a>
+        <p class="muted" style="margin-top:14px;max-width:320px">Premium hand wash &amp; detailing in Casablanca. Get our monthly offers:</p>
+        <form class="news" onsubmit="event.preventDefault();this.innerHTML='<span style=&quot;padding:10px 14px&quot;>Merci! You\'re on the list ✓</span>'"><input type="email" required placeholder="Your email" aria-label="Email"><button class="btn btn-ink" style="padding:10px 18px">Join</button></form>
+      </div>
+      <div><h5>Pages</h5><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#blog">Journal</a></li><li><a href="#book">Book</a></li></ul></div>
+      <div><h5>Social</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">Facebook</a></li><li><a href="#">Google Maps</a></li></ul></div>
+      <div><h5>Studio</h5><ul><li>Rue Ibnou Mounir, Maârif<br>Casablanca 20330, Morocco</li><li><a href="tel:+212600000000">+212 600 000 000</a></li><li><a href="mailto:salam@zellijcarspa.ma">salam@zellijcarspa.ma</a></li><li>Mon – Sun · 8:00 – 21:00</li></ul></div>
+    </div>
+    <div class="giant" id="giant"><span>ZELLIJ</span></div>
+    <div class="fbot"><span>© 2026 Zellij Car Spa. All rights reserved.</span><span>Made in Casablanca 🇲🇦</span></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/212600000000" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.3-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
+</a>
+
+<script>
+const WA = "212600000000"; // ← put your real WhatsApp number here (no + or spaces)
+const U = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`;
+
+/* ---------- data ---------- */
+const services = [
+  {t:"Express exterior", d:"A fast, careful hand wash for daily drivers. In and out in 25 minutes.", p:"from 60", img:"photo-1605515298946-d062f2e9da53", l:["Snow foam pre-wash","Two-bucket hand wash","Wheels & tyres","Microfibre dry"]},
+  {t:"Full wash, in & out", d:"Our best-seller: exterior hand wash plus a full interior clean.", p:"from 150", img:"photo-1607860108855-64acf2078ed9", l:["Everything in Express","Vacuum & mats","Dashboard & panels","Windows inside & out"]},
+  {t:"Interior deep clean", d:"Steam and extraction for seats, carpets and the smells you've stopped noticing.", p:"from 350", img:"photo-1619405399517-d7fce0f13302", l:["Seat shampoo & extraction","Leather clean & feed","Steam sanitising","Odour treatment"]},
+  {t:"Detailing & ceramic", d:"Paint correction and ceramic coating that keeps the shine for up to 2 years.", p:"from 1,800", img:"photo-1552519507-da3b142c6e3d", l:["Clay bar decontamination","1–2 step polish","Ceramic coating","Glass & trim protection"]},
+  {t:"At your door", d:"Any service above, at your home or office. We bring our own water and power.", p:"+40", img:"photo-1494976388531-d1058494cdd8", l:["All of Casablanca","Waterless option","Underground parkings OK","Monthly fleet plans"]},
+];
+const works = [
+  {t:"Range Rover Velar — ceramic", s:"Detailing & ceramic", y:"2026", z:"Anfa", img:"photo-1606664515524-ed2f786a0bd6"},
+  {t:"Classic Mercedes W123", s:"Full wash & polish", y:"2026", z:"Gauthier", img:"photo-1542362567-b07e54358753"},
+  {t:"Porsche 911 — paint correction", s:"Detailing", y:"2026", z:"Ain Diab", img:"photo-1503376780353-7e6692767b70"},
+  {t:"Family SUV after summer", s:"Interior deep clean", y:"2025", z:"Bouskoura", img:"photo-1533473359331-0135ef1b58bf"},
+];
+const prices = {
+  "Citadine":[60,150,1800],
+  "Berline":[70,180,2200],
+  "SUV":[90,220,2600],
+  "Luxury":[120,280,3200],
+};
+const planInfo = [
+  {n:"Express", d:"Exterior only, quick and careful.", l:["Snow foam & hand wash","Wheels & tyres","Microfibre dry","Tyre shine"]},
+  {n:"Complete", d:"The full refresh, inside and out.", hot:1, l:["Everything in Express","Interior vacuum","Dashboard & panels","Windows in & out","Air freshener"]},
+  {n:"Ceramic", d:"Long-term protection and deep gloss.", l:["Full decontamination","1-step polish","Ceramic coating (1 yr)","Interior detail","Free wash after 1 month"]},
+];
+const reviews = [
+  ["Yasmine E.","Anfa","They came to my office parking and my car looked new when I left work. Incroyable."],
+  ["Mehdi R.","Maârif","Best wash in Casa, no contest. They even cleaned the sand out of the trunk."],
+  ["Salma T.","Bourgogne","Super professional, on time, and the before/after photos are a nice touch."],
+  ["Karim L.","Ain Diab","Did the ceramic on my Golf. Six months later water still beads off like day one."],
+  ["Nadia B.","Californie","Kids + dog = disaster interior. They fixed it in two hours. Merci!"],
+  ["Omar H.","Sidi Maarouf","Booked on WhatsApp at 9, washed at 11. Fair price, zero stress."],
+  ["Leila M.","Racine","Finally a car wash that doesn't scratch my black paint. Very careful team."],
+  ["Hamza Z.","CIL","Monthly plan for our 6 company cars. Reliable every single time."],
+];
+
+/* ---------- render ---------- */
+const img = (id,alt="") => `<img src="${U(id)}" alt="${alt}" loading="lazy">`;
+document.getElementById('svcs').innerHTML = services.map((s,i)=>`
+  <div class="svc ${i===0?'open':''} rv">
+    <button class="svc-h" aria-expanded="${i===0}"><span class="n">0${i+1}</span><h3>${s.t}</h3><span class="pm">+</span></button>
+    <div class="svc-b"><div><div class="svc-in"><span></span>
+      <div class="ph">${img(s.img,s.t)}</div>
+      <div><p>${s.d}</p><ul class="ticks">${s.l.map(x=>`<li>${x}</li>`).join('')}</ul><div class="svc-price">${s.p.startsWith('+')?'Supplement':'Starting'} <b>${s.p} MAD</b></div></div>
+    </div></div></div>
+  </div>`).join('');
+document.getElementById('fsvc').innerHTML = services.map(s=>`<option>${s.t}</option>`).join('');
+document.getElementById('works-track').innerHTML = works.map(w=>`
+  <article class="work"><div class="ph">${img(w.img,w.t)}</div><h4>${w.t}</h4>
+  <dl><div><dt>Service</dt><dd>${w.s}</dd></div><div><dt>Year</dt><dd>${w.y}</dd></div><div><dt>Area</dt><dd>${w.z}</dd></div></dl></article>`).join('');
+const tc = r => `<div class="tc"><div class="stars">★★★★★</div><q>“${r[2]}”</q><div class="who"><span class="av">${r[0][0]}</span><div><b>${r[0]}</b><div class="muted">${r[1]}</div></div></div></div>`;
+const half = reviews.slice(0,4), half2 = reviews.slice(4);
+document.getElementById('t1').innerHTML = [...half,...half,...half,...half].map(tc).join('');
+document.getElementById('t2').innerHTML = [...half2,...half2,...half2,...half2].map(tc).join('');
+
+// pricing
+const tabs = document.getElementById('tabs'), plans = document.getElementById('plans'), pill = tabs.querySelector('.pill');
+Object.keys(prices).forEach((k,i)=>{const b=document.createElement('button');b.textContent=k;if(!i)b.className='on';tabs.appendChild(b)});
+plans.innerHTML = planInfo.map((p,i)=>`
+  <div class="plan ${p.hot?'hot':''} rv rv-d${i}">
+    <div class="pt"><h3>${p.n}</h3>${p.hot?'<span class="pop">Most popular</span>':''}</div>
+    <div class="pr"><span data-i="${i}">${prices.Citadine[i].toLocaleString('en')}</span> <small>MAD</small></div>
+    <p>${p.d}</p><ul class="ticks">${p.l.map(x=>`<li>${x}</li>`).join('')}</ul>
+    <a href="#book" class="btn ${p.hot?'btn-sf':'btn-ink'}">Book ${p.n} <span class="ar">↗</span></a>
+  </div>`).join('');
+function movePill(b){pill.style.left=b.offsetLeft+'px';pill.style.width=b.offsetWidth+'px';pill.style.top=b.offsetTop+'px';pill.style.height=b.offsetHeight+'px'}
+tabs.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); movePill(b);
+  plans.querySelectorAll('.pr span').forEach(s=>{
+    s.classList.add('flip');
+    setTimeout(()=>{s.textContent=prices[b.textContent][s.dataset.i].toLocaleString('en');s.classList.remove('flip')},220);
+  });
+});
+
+// broken image fallback → gradient shows through
+document.querySelectorAll('.ph img').forEach(i=>{const f=()=>i.classList.add('broken'); if(i.complete&&!i.naturalWidth&&i.src) f(); i.addEventListener('error',f)});
+
+/* ---------- preloader ---------- */
+const cnt=document.getElementById('cnt'); let n=0;
+const tick=setInterval(()=>{n+=Math.ceil((100-n)/7);cnt.textContent=n;if(n>=100){clearInterval(tick);setTimeout(()=>{document.getElementById('loader').classList.add('done');document.body.classList.add('loaded');requestAnimationFrame(()=>movePill(tabs.querySelector('button.on')))},250)}},60);
+
+/* ---------- reveal & counters ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.giant').forEach(el=>io.observe(el));
+const co=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return; co.unobserve(e.target);
+  const el=e.target,to=+el.dataset.count,dec=+(el.dataset.dec||0),t0=performance.now();
+  const step=t=>{const p=Math.min((t-t0)/1600,1),v=to*(1-Math.pow(1-p,3));el.textContent=dec?v.toFixed(dec):Math.round(v).toLocaleString('en');if(p<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+// word-by-word highlight
+const wEl=document.getElementById('words');
+wEl.innerHTML=wEl.textContent.trim().split(/\s+/).map(w=>`<span class="w">${w}</span>`).join(' ');
+const ws=[...wEl.querySelectorAll('.w')];
+
+/* ---------- services accordion ---------- */
+document.getElementById('svcs').addEventListener('click',e=>{
+  const h=e.target.closest('.svc-h'); if(!h) return;
+  const s=h.parentElement, was=s.classList.contains('open');
+  document.querySelectorAll('.svc').forEach(x=>{x.classList.remove('open');x.querySelector('.svc-h').setAttribute('aria-expanded','false')});
+  if(!was){s.classList.add('open');h.setAttribute('aria-expanded','true')}
+});
+
+/* ---------- process steps ---------- */
+const steps=[...document.querySelectorAll('.step')],pn=document.getElementById('pn'),pbar=document.getElementById('pbar');
+
+/* ---------- scroll loop: nav hide, parallax, words, steps ---------- */
+const nav=document.getElementById('nav'); let lastY=0;
+const pars=[...document.querySelectorAll('[data-par]')];
+function onScroll(){
+  const y=scrollY, vh=innerHeight;
+  nav.classList.toggle('hide', y>lastY && y>300 && !document.body.classList.contains('menu-open')); lastY=y;
+  pars.forEach(p=>{const r=p.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+    const off=(r.top+r.height/2-vh/2)*+p.dataset.par; p.querySelector('img').style.transform=`translateY(${off}px) scale(1.2)`});
+  const wr=wEl.getBoundingClientRect(), prog=Math.min(Math.max((vh*.85-wr.top)/(wr.height+vh*.35),0),1);
+  ws.forEach((w,i)=>w.classList.toggle('on', i/ws.length < prog));
+  let a=0; steps.forEach((s,i)=>{if(s.getBoundingClientRect().top < vh*.55) a=i});
+  steps.forEach((s,i)=>s.classList.toggle('on',i===a));
+  pn.style.transform=`translateY(${-a*25}%)`; pbar.style.width=((a+1)*25)+'%';
+}
+addEventListener('scroll',()=>requestAnimationFrame(onScroll),{passive:true}); onScroll();
+addEventListener('resize',()=>movePill(tabs.querySelector('button.on')));
+
+/* ---------- mobile menu ---------- */
+document.getElementById('burger').onclick=()=>document.body.classList.toggle('menu-open');
+document.querySelectorAll('.mmenu a').forEach(a=>a.onclick=()=>document.body.classList.remove('menu-open'));
+
+/* ---------- works: arrows, drag, custom cursor ---------- */
+const tr=document.getElementById('works-track'), cur=document.getElementById('cur');
+const by=()=>tr.querySelector('.work').offsetWidth+18;
+document.getElementById('wNext').onclick=()=>tr.scrollBy({left:by(),behavior:'smooth'});
+document.getElementById('wPrev').onclick=()=>tr.scrollBy({left:-by(),behavior:'smooth'});
+let dn=false,sx=0,sl=0;
+tr.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;dn=true;sx=e.clientX;sl=tr.scrollLeft;tr.style.scrollSnapType='none'});
+addEventListener('pointerup',()=>{if(dn){dn=false;tr.style.scrollSnapType=''}});
+tr.addEventListener('pointermove',e=>{if(dn)tr.scrollLeft=sl-(e.clientX-sx)});
+if(matchMedia('(hover:hover)').matches){
+  addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+  tr.addEventListener('mouseenter',()=>cur.classList.add('on'));tr.addEventListener('mouseleave',()=>cur.classList.remove('on'));
+}
+
+/* ---------- before / after ---------- */
+const ba=document.getElementById('ba'),bef=ba.querySelector('.before'),hd=ba.querySelector('.handle'),kb=ba.querySelector('.knob');
+function setBA(x){const r=ba.getBoundingClientRect(),p=Math.min(Math.max((x-r.left)/r.width,0),1)*100;bef.style.clipPath=`inset(0 ${100-p}% 0 0)`;hd.style.left=kb.style.left=p+'%'}
+let bd=false;
+ba.addEventListener('pointerdown',e=>{bd=true;setBA(e.clientX)});
+addEventListener('pointermove',e=>{if(bd)setBA(e.clientX)});
+addEventListener('pointerup',()=>bd=false);
+// little intro wiggle when it appears
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();const r=ba.getBoundingClientRect();let t0=performance.now();
+  const a=t=>{const p=(t-t0)/1800;if(p>1||bd)return;setBA(r.left+r.width*(.5+Math.sin(p*Math.PI*2)*.22));requestAnimationFrame(a)};requestAnimationFrame(a)}},{threshold:.6}).observe(ba);
+
+/* ---------- booking → WhatsApp ---------- */
+document.getElementById('bform').addEventListener('submit',e=>{
+  e.preventDefault(); const f=Object.fromEntries(new FormData(e.target));
+  const msg=`Salam Zellij! I'd like to book:\n• Service: ${f.service}\n• Vehicle: ${f.car}\n• Where: ${f.where}\n• Area: ${f.zone||'-'}\n• Date: ${f.date||'-'}\n• Name: ${f.name}\n• Phone: ${f.phone}`;
+  open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+});
+</script>
+</body>
+</html>
