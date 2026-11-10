@@ -48,19 +48,19 @@ html.no-motion #loader,html.no-motion .curtain{display:none}
 @media (prefers-reduced-motion:reduce){.curtain,#loader{display:none}}
 
 /* ---------- nav ---------- */
-.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1280px,100% - 32px);display:flex;align-items:center;justify-content:space-between;padding:8px 10px 8px 16px;border-radius:999px;background:rgba(10,10,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--bg);transition:transform .5s var(--ease)}
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1280px,100% - 32px);display:flex;align-items:center;justify-content:space-between;padding:6px 10px 6px 12px;border-radius:999px;background:rgba(10,10,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--bg);transition:transform .5s var(--ease)}
 .nav.hide{transform:translate(-50%,-140%)}
 .logo{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque";font-weight:800;font-size:19px;letter-spacing:-.02em}
-.logo svg{height:46px;width:auto;aspect-ratio:120/84;flex:none;filter:drop-shadow(0 2px 6px rgba(255,214,10,.18))}
+.logo svg{height:58px;width:auto;aspect-ratio:140/100;flex:none;filter:drop-shadow(0 2px 6px rgba(255,214,10,.18))}
 .logo .lw{display:flex;flex-direction:column;line-height:1}
-.logo .lw b{font-weight:800;font-size:1em;letter-spacing:-.02em}
+.logo .lw b{font-weight:800;font-size:1.12em;letter-spacing:-.02em}
 .logo .lw small{font-family:Inter,sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--y);margin-top:5px}
 .logo:hover svg{transform:rotate(-6deg) scale(1.06)}
 .logo svg{transition:transform .5s var(--ease)}
 footer .logo{font-size:30px}
-footer .logo svg{height:72px;filter:none}
+footer .logo svg{height:96px;filter:none}
 footer .logo .lw small{color:var(--muted);font-size:11px}
-.curtain .logo svg{height:72px}
+.curtain .logo svg{height:110px}
 .curtain .logo .lw small{font-size:11px}
 .nav ul{display:flex;gap:2px;list-style:none}
 .nav ul a{display:block;padding:9px 13px;border-radius:999px;font-size:14px;opacity:.75;transition:.25s;position:relative}
@@ -450,7 +450,7 @@ footer ul a:hover::after{transform:scaleX(1);transform-origin:left}
   .hprog{display:none}
 }
 @media (max-width:640px){
-  .logo svg{height:40px}
+  .logo svg{height:46px}
   .logo .lw small{font-size:8.5px;letter-spacing:.2em}
   .plans,.posts,.cards,.team,.values,.addons{grid-template-columns:1fr}
   .svc-h{grid-template-columns:36px 1fr auto;gap:12px}
