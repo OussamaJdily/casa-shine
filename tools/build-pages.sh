@@ -87,7 +87,11 @@ REVIEWS='<section class="dark pad" style="overflow:hidden">
 cat <<EOF
 <section class="hero">
   <div class="hero-in">
-    <div class="hero-bg ph"><img src="$(U photo-1601362840469-51e4d8d58785 2200)" alt="Car covered in foam during a hand wash"></div>
+    <div class="hero-bg ph"><div class="hero-media">
+      <img src="$(U photo-1601362840469-51e4d8d58785 2200)" alt="Car covered in foam during a hand wash">
+      <!-- free Pexels footage by Tima Miroshnichenko (pexels.com/license) — wide for desktop, tall for phones -->
+      <video class="hero-vid" muted loop playsinline preload="none" aria-hidden="true" data-wide="assets/video/hero-wide.mp4" data-tall="assets/video/hero-tall.mp4"></video>
+    </div></div>
     <svg class="badge-rot" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="c" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#c">Hand wash · Casablanca · Since 2019 ·</textPath></text><circle cx="60" cy="60" r="16" fill="#FFD60A"/></svg>
     <h1 data-split="intro">Casa<br><em>Shine.</em></h1>
     <div class="hero-row">

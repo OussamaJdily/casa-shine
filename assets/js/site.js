@@ -297,6 +297,18 @@
   }));
   $$("[data-news]").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); f.innerHTML = `<span style="padding:10px 14px">Merci! You're on the list ✓</span>`; }));
 
+  // hero background video: tall clip on portrait screens, wide on landscape; the photo stays
+  // underneath as the poster/fallback (reduced motion, data saver, autoplay blocked)
+  const hv = $(".hero-vid");
+  if (hv && !RM && !(navigator.connection && navigator.connection.saveData)) {
+    const portrait = matchMedia("(max-aspect-ratio: 1/1)").matches;
+    hv.src = portrait ? hv.dataset.tall : hv.dataset.wide;
+    hv.addEventListener("playing", () => hv.classList.add("on"), { once: true });
+    const tryPlay = () => { const p = hv.play(); p && p.catch(() => {}); };
+    tryPlay();
+    new IntersectionObserver(es => es[0].isIntersecting ? tryPlay() : hv.pause()).observe(hv);
+  }
+
   // before / after
   $$("[data-ba]").forEach(ba => {
     const bef = $(".before", ba), hd = $(".handle", ba), kb = $(".knob", ba);
@@ -479,7 +491,7 @@
   }
 
   /* hero (home) */
-  const heroBg = $(".hero-bg img");
+  const heroBg = $(".hero-media");
   if (heroBg) {
     introTl.from(heroBg, { scale: 1.45, duration: 2, ease: "expo.out" }, 0);
     gsap.to(".hero-in", { scale: .94, borderRadius: 40, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
