@@ -42,16 +42,26 @@ section{position:relative}
 #loader .lbl{font-size:13px;text-transform:uppercase;letter-spacing:.2em;opacity:.6}
 #loader .bar{position:absolute;left:0;bottom:0;height:4px;background:var(--y);width:0}
 .curtain{position:fixed;inset:0;z-index:95;background:var(--ink);pointer-events:none;display:grid;place-items:center;animation:cfail .6s 2.5s forwards}
-.curtain .logo{color:var(--bg);font-size:28px}
+.curtain .logo{color:var(--bg);font-size:34px;gap:16px}
 @keyframes cfail{to{transform:translateY(-100%);visibility:hidden}}
 html.no-motion #loader,html.no-motion .curtain{display:none}
 @media (prefers-reduced-motion:reduce){.curtain,#loader{display:none}}
 
 /* ---------- nav ---------- */
-.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1280px,100% - 32px);display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 18px;border-radius:999px;background:rgba(10,10,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--bg);transition:transform .5s var(--ease)}
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1280px,100% - 32px);display:flex;align-items:center;justify-content:space-between;padding:8px 10px 8px 16px;border-radius:999px;background:rgba(10,10,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--bg);transition:transform .5s var(--ease)}
 .nav.hide{transform:translate(-50%,-140%)}
 .logo{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque";font-weight:800;font-size:19px;letter-spacing:-.02em}
-.logo svg{width:30px;height:30px;flex:none}
+.logo svg{height:46px;width:auto;aspect-ratio:120/84;flex:none;filter:drop-shadow(0 2px 6px rgba(255,214,10,.18))}
+.logo .lw{display:flex;flex-direction:column;line-height:1}
+.logo .lw b{font-weight:800;font-size:1em;letter-spacing:-.02em}
+.logo .lw small{font-family:Inter,sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--y);margin-top:5px}
+.logo:hover svg{transform:rotate(-6deg) scale(1.06)}
+.logo svg{transition:transform .5s var(--ease)}
+footer .logo{font-size:30px}
+footer .logo svg{height:72px;filter:none}
+footer .logo .lw small{color:var(--muted);font-size:11px}
+.curtain .logo svg{height:72px}
+.curtain .logo .lw small{font-size:11px}
 .nav ul{display:flex;gap:2px;list-style:none}
 .nav ul a{display:block;padding:9px 13px;border-radius:999px;font-size:14px;opacity:.75;transition:.25s;position:relative}
 .nav ul a:hover,.nav ul a.on{opacity:1;background:rgba(255,255,255,.08)}
@@ -440,6 +450,8 @@ footer ul a:hover::after{transform:scaleX(1);transform-origin:left}
   .hprog{display:none}
 }
 @media (max-width:640px){
+  .logo svg{height:40px}
+  .logo .lw small{font-size:8.5px;letter-spacing:.2em}
   .plans,.posts,.cards,.team,.values,.addons{grid-template-columns:1fr}
   .svc-h{grid-template-columns:36px 1fr auto;gap:12px}
   .pm{width:42px;height:42px}

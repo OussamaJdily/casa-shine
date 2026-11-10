@@ -17,7 +17,9 @@
   const mad = n => Number(n).toLocaleString("en");
   const store = { get(k) { try { return sessionStorage.getItem(k) } catch (e) { return null } }, set(k, v) { try { sessionStorage.setItem(k, v) } catch (e) {} } };
 
-  const LOGO = `<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2l5.3 7.2 8.9-.9-.9 8.9L40 20l-6.7 2.8.9 8.9-8.9-.9L20 38l-5.3-7.2-8.9.9.9-8.9L0 20l6.7-2.8-.9-8.9 8.9.9z" fill="#FFD60A"/><circle cx="20" cy="20" r="6.5" fill="#0A0A0A"/><path d="M14 22c3 2 9 2 12 0" stroke="#FFD60A" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`;
+  // crown + car mark (same artwork as assets/img/logo.svg)
+  const MARK = `<svg viewBox="0 0 120 84" aria-hidden="true"><g fill="#FFD60A"><path d="M17 80 L9 27 Q24 40 33 47 L35 15 Q45 33 50 42 L60 8 L70 42 Q75 33 85 15 L87 47 Q96 40 111 27 L103 80 Z"/><circle cx="8.5" cy="23" r="5.5"/><circle cx="35" cy="11" r="5.5"/><circle cx="60" cy="5.5" r="5.5"/><circle cx="85" cy="11" r="5.5"/><circle cx="111.5" cy="23" r="5.5"/></g><g fill="#0A0A0A"><path d="M30 80 V64 Q30 57 37 55 L42 44 Q44 39.5 50 39.5 H70 Q76 39.5 78 44 L83 55 Q90 57 90 64 V80 Z"/>  </g><g fill="#FFD60A"><path d="M44.5 53 L47.5 45.5 Q48.6 43.5 51 43.5 H69 Q71.4 43.5 72.5 45.5 L75.5 53 Z"/><circle cx="38.5" cy="63" r="3.6"/><circle cx="81.5" cy="63" r="3.6"/><rect x="49" y="59" width="22" height="2.2" rx="1.1"/><rect x="49" y="63.4" width="22" height="2.2" rx="1.1"/><rect x="49" y="67.8" width="22" height="2.2" rx="1.1"/><rect x="34" y="73.5" width="52" height="2.4" rx="1.2"/></g><g fill="#0A0A0A"><path d="M57 27.5 l1.1 3 3 1.1 -3 1.1 -1.1 3 -1.1 -3 -3 -1.1 3 -1.1z"/><path d="M64.5 22 l.8 2.1 2.1.8 -2.1.8 -.8 2.1 -.8 -2.1 -2.1 -.8 2.1 -.8z"/></g></svg>`;
+  const LOGO = `${MARK}<span class="lw"><b>${S.name}</b><small>Car wash · Casablanca</small></span>`;
   const AR = `<span class="ar">↗</span>`;
   const NAV = [["index.html", "Home"], ["about.html", "About"], ["services.html", "Services"], ["pricing.html", "Pricing"], ["team.html", "Team"], ["blog.html", "Journal"], ["contact.html", "Contact"]];
   const active = { home: "index.html", about: "about.html", services: "services.html", service: "services.html", pricing: "pricing.html", team: "team.html", blog: "blog.html", post: "blog.html", contact: "contact.html" }[page];
@@ -27,12 +29,12 @@
 
   /* ================= 1. CHROME ================= */
   const curtain = $("#curtain");
-  if (curtain) curtain.innerHTML = `<span class="logo">${LOGO}${S.name}</span>`;
+  if (curtain) curtain.innerHTML = `<span class="logo">${LOGO}</span>`;
 
   document.body.insertAdjacentHTML("afterbegin", `
     <div class="cur" id="cur"><span></span></div>
     <header class="nav" id="nav">
-      <a href="index.html" class="logo" aria-label="${S.name} home">${LOGO}${S.name}</a>
+      <a href="index.html" class="logo" aria-label="${S.name} home">${LOGO}</a>
       <ul>${NAV.map(([h, t]) => `<li><a href="${h}" class="${h === active ? "on" : ""}">${t}</a></li>`).join("")}</ul>
       <div class="right">
         <a href="contact.html#book" class="btn btn-y">Book a wash ${AR}</a>
@@ -57,7 +59,7 @@
     <footer><div class="wrap">
       <div class="fgrid">
         <div>
-          <a href="index.html" class="logo">${LOGO}${S.name}</a>
+          <a href="index.html" class="logo">${LOGO}</a>
           <p class="muted" style="margin-top:14px;max-width:340px">Premium hand wash, interior care and ceramic detailing in Casablanca. Monthly offers in your inbox:</p>
           <form class="news" data-news><input type="email" required placeholder="Your email" aria-label="Email"><button class="btn btn-ink" style="padding:10px 18px">Join</button></form>
         </div>
