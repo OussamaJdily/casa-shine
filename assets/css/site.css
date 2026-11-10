@@ -220,15 +220,25 @@ footer .logo .lw small{color:var(--muted);font-size:11px}
 /* ---------- works (horizontal) ---------- */
 .hwrap{overflow:hidden}
 .htrack{display:flex;gap:18px;width:max-content;padding:0 16px}
-.work{flex:0 0 min(560px,82vw)}
-.work .ph{height:min(620px,100vw);border-radius:var(--r)}
+/* each work = photo with its details on top, so title/service/year/area are always visible */
+.work{flex:0 0 min(520px,82vw);position:relative;border-radius:var(--r);overflow:hidden;isolation:isolate}
+.work .ph{height:clamp(300px,calc(100svh - 320px),620px);border-radius:var(--r)}
 .work:hover .ph img{transform:scale(1.06)}
-.work h4{font-size:30px;margin:18px 0 10px}
-.work dl{display:flex;gap:28px;font-size:14px}
-.work dt{opacity:.55}
+.wcap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:90px 26px 24px;color:#fff;background:linear-gradient(0deg,rgba(10,10,10,.94) 25%,rgba(10,10,10,.6) 60%,transparent)}
+.wn{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--ink);background:var(--y);padding:4px 10px;border-radius:999px}
+.work h4{font-size:clamp(24px,2.3vw,32px);margin:12px 0 14px;line-height:1.05}
+.work dl{display:flex;gap:10px;flex-wrap:wrap;font-size:13px}
+.work dl div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 12px;backdrop-filter:blur(6px)}
+.work dt{opacity:.6;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
 .work dd{font-weight:600}
-.hprog{height:3px;background:var(--line-d);margin-top:40px;border-radius:3px;overflow:hidden}
+.hprog{height:3px;background:var(--line-d);margin-top:28px;border-radius:3px;overflow:hidden}
 .hprog i{display:block;height:100%;width:0;background:var(--y)}
+/* pinned (desktop): the whole section fits one screen */
+@media (min-width:981px){
+  [data-hpin]{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:96px 0 32px!important}
+  [data-hpin] .sec-head{margin-bottom:clamp(20px,3.5vh,40px)}
+  [data-hpin] .h2{font-size:clamp(40px,min(6.4vw,8.5vh),92px);margin-top:12px}
+}
 
 /* ---------- bento ---------- */
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}

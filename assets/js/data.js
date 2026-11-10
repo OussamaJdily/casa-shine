@@ -56,9 +56,9 @@ window.SITE = {
   addons: [["Engine bay clean", 80], ["Headlight restoration", 200], ["Pet hair removal", 100], ["Leather treatment", 150], ["Rain repellent on glass", 70], ["Doorstep service", 40]],
 
   works: [
-    { t: "Range Rover Velar", s: "Ceramic coating", y: "2026", z: "Anfa", img: "photo-1606664515524-ed2f786a0bd6" },
-    { t: "Mercedes W123 Classic", s: "Wash & polish", y: "2026", z: "Gauthier", img: "photo-1542362567-b07e54358753" },
-    { t: "Porsche 911", s: "Paint correction", y: "2026", z: "Ain Diab", img: "photo-1503376780353-7e6692767b70" },
+    { t: "Audi Avant", s: "Ceramic coating", y: "2026", z: "Anfa", img: "photo-1606664515524-ed2f786a0bd6" },
+    { t: "McLaren 720S", s: "Wash & polish", y: "2026", z: "Gauthier", img: "photo-1542362567-b07e54358753" },
+    { t: "Porsche Panamera", s: "Paint correction", y: "2026", z: "Ain Diab", img: "photo-1503376780353-7e6692767b70" },
     { t: "Family SUV after summer", s: "Interior deep clean", y: "2025", z: "Bouskoura", img: "photo-1533473359331-0135ef1b58bf" },
     { t: "Mustang GT", s: "Complete in & out", y: "2025", z: "Maârif", img: "photo-1494976388531-d1058494cdd8" }
   ],

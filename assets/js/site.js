@@ -116,9 +116,10 @@
         </a>`).join("");
     },
     works: el => {
-      el.innerHTML = `<div class="hwrap"><div class="htrack">${S.works.map(w => `
-        <article class="work" data-cursor="Drag"><div class="ph">${img(w.img, w.t, 1200)}</div><h4>${w.t}</h4>
-        <dl><div><dt>Service</dt><dd>${w.s}</dd></div><div><dt>Year</dt><dd>${w.y}</dd></div><div><dt>Area</dt><dd>${w.z}</dd></div></dl></article>`).join("")}
+      el.innerHTML = `<div class="hwrap"><div class="htrack">${S.works.map((w, i) => `
+        <article class="work"><div class="ph">${img(w.img, w.t, 1200)}</div>
+        <div class="wcap"><span class="wn">${String(i + 1).padStart(2, "0")} / ${String(S.works.length).padStart(2, "0")}</span><h4>${w.t}</h4>
+        <dl><div><dt>Service</dt><dd>${w.s}</dd></div><div><dt>Year</dt><dd>${w.y}</dd></div><div><dt>Area</dt><dd>${w.z}</dd></div></dl></div></article>`).join("")}
       </div></div><div class="wrap"><div class="hprog"><i></i></div></div>`;
     },
     plans: el => {
@@ -297,6 +298,11 @@
   }));
   $$("[data-news]").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); f.innerHTML = `<span style="padding:10px 14px">Merci! You're on the list ✓</span>`; }));
 
+  // works slider: its photos sit off-screen to the right, so start loading them before the section arrives
+  $$(".htrack").forEach(t => new IntersectionObserver((es, o) => {
+    if (!es[0].isIntersecting) return; o.disconnect(); $$("img", t).forEach(i => { i.loading = "eager"; });
+  }, { rootMargin: "1200px 0px" }).observe(t));
+
   // hero background video: tall clip on portrait screens, wide on landscape; the photo stays
   // underneath as the poster/fallback (reduced motion, data saver, autoplay blocked)
   const hv = $(".hero-vid");
@@ -431,7 +437,7 @@
     const pin = $("[data-hpin]"); if (!pin) return;
     const tr = $(".htrack", pin), prog = $(".hprog i", pin);
     const dist = () => tr.scrollWidth - innerWidth + 32;
-    gsap.to(tr, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, onUpdate: s => prog && (prog.style.width = s.progress * 100 + "%") } });
+    gsap.to(tr, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: pin, start: "top top", end: () => "+=" + dist(), pin: true, scrub: .8, anticipatePin: 1, invalidateOnRefresh: true, onUpdate: s => prog && (prog.style.width = s.progress * 100 + "%") } });
   });
 
   /* marquees driven by scroll velocity */
