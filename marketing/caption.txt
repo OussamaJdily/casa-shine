@@ -1,46 +1,79 @@
-SALES POST — selling the car wash website to car wash owners in Casablanca
-Images: post-square.png (feed: Instagram, Facebook, LinkedIn) · post-story.png (Story / WhatsApp status)
+CAR WASH WEBSITE — SOCIAL MEDIA POSTS (French + Arabic)
+Images (1080x1350, Instagram/Facebook 4:5 feed format):
+  out/fr/post-1.png … post-6.png   (French)
+  out/ar/post-1.png … post-6.png   (Arabic)
+
+HOW TO POST
+- Option A (best reach): one CAROUSEL with the 6 slides, in order 1 → 6.
+  Post the French carousel one day and the Arabic carousel 2–3 days later.
+- Option B: post the slides one by one (1 per day for 6 days) with the
+  single-post captions below.
+- Best times in Morocco: 12:00–14:00 and 20:00–22:00.
 
 ============================================================
-CAPTION (French) — copy everything between the lines
+FRENCH — CAROUSEL CAPTION
 ------------------------------------------------------------
-🚗✨ Propriétaires de lavage auto à Casablanca : vos clients vous cherchent sur leur téléphone. Est-ce qu'ils vous trouvent ?
+🚗✨ Propriétaires de lavage auto à Casablanca, cette publication est pour vous.
 
-J'ai créé un site web pro pensé 100% pour les car wash 👇
+Vos clients cherchent un car wash sur leur téléphone. S'ils ne vous trouvent pas, ils vont chez le voisin.
 
-✅ Réservation sur WhatsApp en 1 clic
-✅ Parfait sur mobile (là où sont vos clients)
-✅ Vidéo et animations premium qui donnent confiance
-✅ Vos services, vos prix par type de véhicule, votre équipe
-✅ Zones desservies, avis clients, FAQ, blog
+J'ai créé un site web pensé 100% pour les car wash :
+✅ Réservation sur WhatsApp en 30 secondes
+✅ Vos prix clairs par type de véhicule
+✅ Galerie de vos réalisations + avant / après
+✅ Avis de vos clients
+✅ Parfait sur téléphone et sur ordinateur
 ✅ Votre logo, vos couleurs, votre numéro
 
-👀 Testez la démo en live : casa-shine.vercel.app
-(ouvrez-la sur votre téléphone 📱)
+👉 Glissez pour voir le site ➡️
+📩 Écrivez-moi « SITE » en DM pour voir la démo en vidéo.
 
-👉 Vous voulez le même pour votre car wash ?
-Envoyez-moi "SITE" en DM 📩
-
-#lavageauto #carwash #casablanca #casa #maroc #morocco #siteweb #webdesign #creationsiteweb #siteinternet #marketingdigital #entrepreneur #lavageamain #detailing #cardetailing #petiteentreprise #businessmaroc #webdesignermaroc
-
-------------------------------------------------------------
-SHORT VERSION (Story text / WhatsApp status)
-------------------------------------------------------------
-Car wash à Casa ? 🚗 Un site pro avec réservation WhatsApp. Démo 👉 casa-shine.vercel.app — DM "SITE"
-
-------------------------------------------------------------
-DARIJA VERSION (optional)
-------------------------------------------------------------
-🚗✨ 3andek lavage f Casa ? Les clients dyalek kay9elbo 3lik f téléphone.
-Sowbt site pro khass b les car wash : réservation WhatsApp b click wa7d, mzyan f mobile, vidéo w animations, les prix w les services dyalek.
-👀 Chouf la démo : casa-shine.vercel.app
-📩 Sift-li "SITE" f DM
+#lavageauto #carwash #casablanca #casa #maroc #siteweb #creationsiteweb #webdesign #siteinternet #marketingdigital #entrepreneurmaroc #lavageamain #detailing #businessmaroc #petiteentreprise
 
 ============================================================
-TIPS FOR MAX REACH
-- Post the square image in the feed + the Story the same day; in the Story add a Link sticker → casa-shine.vercel.app
-- Best times in Morocco: 12:00–14:00 and 20:00–22:00
-- Pin the post on your profile; put the demo link in your bio
-- Share it in Casablanca business / entrepreneur Facebook groups
-- Send the demo link directly (WhatsApp/DM) to car washes you find on Google Maps — personal messages convert best
-- Make a Reel: screen-record yourself scrolling the demo on your phone (the video hero + animations look great in motion)
+ARABIC — CAROUSEL CAPTION
+------------------------------------------------------------
+🚗✨ إلى أصحاب مغاسل السيارات في الدار البيضاء، هذا المنشور لكم.
+
+زبناؤك يبحثون عن مغسلة سيارات على هواتفهم. إذا لم يجدوك، سيذهبون إلى غيرك.
+
+صممت موقعًا إلكترونيًا خاصًا بمغاسل السيارات:
+✅ حجز عبر واتساب في 30 ثانية
+✅ أسعار واضحة حسب نوع السيارة
+✅ معرض لأعمالك + صور قبل / بعد
+✅ آراء زبنائك
+✅ مثالي على الهاتف والحاسوب
+✅ بشعارك وألوانك ورقمك
+
+👈 اسحب لترى الموقع
+📩 راسلني في الخاص بكلمة « موقع » لترى العرض بالفيديو.
+
+#غسيل_السيارات #مغسلة_سيارات #الدار_البيضاء #كازا #المغرب #موقع_إلكتروني #تصميم_مواقع #تسويق_رقمي #مشروع #carwash #casablanca #maroc
+
+============================================================
+SINGLE-POST CAPTIONS (if you post the slides one by one)
+------------------------------------------------------------
+1 FR  Votre car wash mérite un site pro 🚗✨ Beau sur ordinateur, parfait sur téléphone. DM « SITE » 📩
+1 AR  مغسلة سيارتك تستحق موقعًا احترافيًا 🚗✨ جميل على الحاسوب ومثالي على الهاتف. راسلني في الخاص 📩
+
+2 FR  Vos clients réservent sur WhatsApp en 30 secondes 📲 Sans appel, sans attente. DM « SITE » 📩
+2 AR  زبناؤك يحجزون عبر واتساب في 30 ثانية 📲 بدون مكالمات وبدون انتظار. راسلني في الخاص 📩
+
+3 FR  Des prix clairs = moins de questions, plus de réservations 💰 DM « SITE » 📩
+3 AR  أسعار واضحة = أسئلة أقل وحجوزات أكثر 💰 راسلني في الخاص 📩
+
+4 FR  Montrez vos plus beaux résultats 📸 Galerie, avant / après, avis clients. DM « SITE » 📩
+4 AR  اعرض أجمل أعمالك 📸 معرض الصور، قبل / بعد، آراء الزبناء. راسلني في الخاص 📩
+
+5 FR  Sans site vs avec site : vous êtes de quel côté ? 👀 DM « SITE » 📩
+5 AR  بدون موقع أو مع موقع؟ أنت في أي جهة؟ 👀 راسلني في الخاص 📩
+
+6 FR  Votre site à votre image : logo, couleurs, prix, WhatsApp 🎨 DM « SITE » 📩
+6 AR  موقعك على صورتك: شعارك، ألوانك، أسعارك وواتساب 🎨 راسلني في الخاص 📩
+
+============================================================
+MORE REACH (free)
+- Share the carousel in Casablanca business / entrepreneur Facebook groups.
+- Send slide 1 + 2 directly on WhatsApp to car washes you find on Google Maps.
+- Pin the carousel on your profile.
+- Reply to every comment fast: comments push the post to more people.
