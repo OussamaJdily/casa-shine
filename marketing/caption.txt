@@ -1,32 +1,46 @@
-CASA SHINE — INSTAGRAM / FACEBOOK CAPTION
-(copy everything between the lines)
+SALES POST — selling the car wash website to car wash owners in Casablanca
+Images: post-square.png (feed: Instagram, Facebook, LinkedIn) · post-story.png (Story / WhatsApp status)
+
+============================================================
+CAPTION (French) — copy everything between the lines
 ------------------------------------------------------------
+🚗✨ Propriétaires de lavage auto à Casablanca : vos clients vous cherchent sur leur téléphone. Est-ce qu'ils vous trouvent ?
 
-✨ Votre voiture mérite de briller ✨
+J'ai créé un site web pro pensé 100% pour les car wash 👇
 
-Casa Shine, c'est le lavage auto à la main à Casablanca 🇲🇦
-Dans notre studio à Maârif… ou directement chez vous 🚐
+✅ Réservation sur WhatsApp en 1 clic
+✅ Parfait sur mobile (là où sont vos clients)
+✅ Vidéo et animations premium qui donnent confiance
+✅ Vos services, vos prix par type de véhicule, votre équipe
+✅ Zones desservies, avis clients, FAQ, blog
+✅ Votre logo, vos couleurs, votre numéro
 
-🧽 Lavage extérieur — dès 60 MAD
-🚗 Intérieur & extérieur complet — dès 150 MAD
-💎 Polissage & céramique
-📸 Photos avant / après à chaque lavage
-💳 Vous payez après le lavage
+👀 Testez la démo en live : casa-shine.vercel.app
+(ouvrez-la sur votre téléphone 📱)
 
-📍 Partout à Casa : Maârif, Anfa, Ain Diab, Gauthier, Bouskoura…
-🕗 7j/7 · 8h – 21h
+👉 Vous voulez le même pour votre car wash ?
+Envoyez-moi "SITE" en DM 📩
 
-👉 Réservez sur WhatsApp en 30 secondes : +212 600 000 000
-🌐 casa-shine.vercel.app
-
-—
-🇬🇧 Hand car wash in Casablanca — at our Maârif studio or at your door. From 60 MAD. Book on WhatsApp.
-
-#casashine #lavageauto #carwash #casablanca #casa #maroc #morocco #lavageamain #detailing #cardetailing #ceramiccoating #maarif #anfa #aindiab #lavageadomicile #voiture #carcare #morocco🇲🇦
+#lavageauto #carwash #casablanca #casa #maroc #morocco #siteweb #webdesign #creationsiteweb #siteinternet #marketingdigital #entrepreneur #lavageamain #detailing #cardetailing #petiteentreprise #businessmaroc #webdesignermaroc
 
 ------------------------------------------------------------
-Images:  post-square.png  → feed post (Instagram + Facebook)
-         post-story.png   → Instagram / Facebook / WhatsApp Story
-Tip: in the Story, add a "Link" sticker pointing to casa-shine.vercel.app
-Before posting: replace +212 600 000 000 with your real number
-(edit marketing/post.html, then run: bash tools/export-posts.sh)
+SHORT VERSION (Story text / WhatsApp status)
+------------------------------------------------------------
+Car wash à Casa ? 🚗 Un site pro avec réservation WhatsApp. Démo 👉 casa-shine.vercel.app — DM "SITE"
+
+------------------------------------------------------------
+DARIJA VERSION (optional)
+------------------------------------------------------------
+🚗✨ 3andek lavage f Casa ? Les clients dyalek kay9elbo 3lik f téléphone.
+Sowbt site pro khass b les car wash : réservation WhatsApp b click wa7d, mzyan f mobile, vidéo w animations, les prix w les services dyalek.
+👀 Chouf la démo : casa-shine.vercel.app
+📩 Sift-li "SITE" f DM
+
+============================================================
+TIPS FOR MAX REACH
+- Post the square image in the feed + the Story the same day; in the Story add a Link sticker → casa-shine.vercel.app
+- Best times in Morocco: 12:00–14:00 and 20:00–22:00
+- Pin the post on your profile; put the demo link in your bio
+- Share it in Casablanca business / entrepreneur Facebook groups
+- Send the demo link directly (WhatsApp/DM) to car washes you find on Google Maps — personal messages convert best
+- Make a Reel: screen-record yourself scrolling the demo on your phone (the video hero + animations look great in motion)
