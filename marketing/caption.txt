@@ -1,0 +1,32 @@
+CASA SHINE — INSTAGRAM / FACEBOOK CAPTION
+(copy everything between the lines)
+------------------------------------------------------------
+
+✨ Votre voiture mérite de briller ✨
+
+Casa Shine, c'est le lavage auto à la main à Casablanca 🇲🇦
+Dans notre studio à Maârif… ou directement chez vous 🚐
+
+🧽 Lavage extérieur — dès 60 MAD
+🚗 Intérieur & extérieur complet — dès 150 MAD
+💎 Polissage & céramique
+📸 Photos avant / après à chaque lavage
+💳 Vous payez après le lavage
+
+📍 Partout à Casa : Maârif, Anfa, Ain Diab, Gauthier, Bouskoura…
+🕗 7j/7 · 8h – 21h
+
+👉 Réservez sur WhatsApp en 30 secondes : +212 600 000 000
+🌐 casa-shine.vercel.app
+
+—
+🇬🇧 Hand car wash in Casablanca — at our Maârif studio or at your door. From 60 MAD. Book on WhatsApp.
+
+#casashine #lavageauto #carwash #casablanca #casa #maroc #morocco #lavageamain #detailing #cardetailing #ceramiccoating #maarif #anfa #aindiab #lavageadomicile #voiture #carcare #morocco🇲🇦
+
+------------------------------------------------------------
+Images:  post-square.png  → feed post (Instagram + Facebook)
+         post-story.png   → Instagram / Facebook / WhatsApp Story
+Tip: in the Story, add a "Link" sticker pointing to casa-shine.vercel.app
+Before posting: replace +212 600 000 000 with your real number
+(edit marketing/post.html, then run: bash tools/export-posts.sh)

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Casa Shine post</title>
+<!-- Social post template. Open post.html#square (1080x1080) or post.html#story (1080x1920).
+     Exported with: bash tools/export-posts.sh -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+  :root{--ink:#0A0A0A;--y:#FFD60A;--bg:#E9E9E6}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1080px;overflow:hidden;background:var(--ink)}
+  body.story,html.story{height:1920px}
+  body{font-family:Inter,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+  .frame{position:relative;width:1080px;height:100%;overflow:hidden;display:flex;flex-direction:column;padding:64px}
+  .bg{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=2200&q=85") center/cover}
+  .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.78) 0%,rgba(10,10,10,.15) 34%,rgba(10,10,10,.35) 55%,rgba(10,10,10,.96) 82%)}
+  .story .bg{background-position:58% center}
+  .story .bg::after{background:linear-gradient(180deg,rgba(10,10,10,.8) 0%,rgba(10,10,10,.1) 26%,rgba(10,10,10,.3) 50%,rgba(10,10,10,.97) 76%)}
+  .top,.mid,.bot{position:relative}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .logo{display:flex;align-items:center;gap:18px}
+  .logo img{height:92px}
+  .logo b{display:block;font-family:"Bricolage Grotesque";font-weight:800;font-size:44px;letter-spacing:-.02em;line-height:1}
+  .logo small{display:block;margin-top:8px;font-size:15px;font-weight:700;letter-spacing:.26em;color:var(--y)}
+  .badge{background:var(--y);color:var(--ink);border-radius:999px;padding:16px 26px;font-weight:700;font-size:22px;text-align:center;line-height:1.1}
+  .badge span{display:block;font-family:"Bricolage Grotesque";font-weight:800;font-size:40px;letter-spacing:-.03em}
+  .mid{margin-top:auto}
+  .tag{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);padding:10px 20px;border-radius:999px;font-weight:600;font-size:22px}
+  .tag i{width:12px;height:12px;border-radius:50%;background:var(--y)}
+  h1{font-family:"Bricolage Grotesque";font-weight:800;font-size:132px;line-height:.86;letter-spacing:-.055em;margin:26px 0 26px}
+  h1 em{font-style:normal;color:var(--y)}
+  h1{text-shadow:0 4px 40px rgba(0,0,0,.55)}
+  .story h1{font-size:146px;letter-spacing:-.045em}
+  .story .bg::after{background:linear-gradient(180deg,rgba(10,10,10,.8) 0%,rgba(10,10,10,.1) 24%,rgba(10,10,10,.55) 44%,rgba(10,10,10,.97) 70%)}
+  .chips{display:flex;flex-wrap:wrap;gap:12px}
+  .chips span{border:1.5px solid rgba(255,255,255,.35);border-radius:999px;padding:10px 20px;font-size:22px;font-weight:600}
+  .bot{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:30px;border-top:1.5px solid rgba(255,255,255,.18);gap:20px}
+  .cta{display:flex;align-items:center;gap:16px;background:#25D366;color:#fff;border-radius:999px;padding:18px 30px 18px 20px;font-weight:700;font-size:26px}
+  .cta svg{width:40px;height:40px}
+  .site{text-align:right;font-size:20px;color:rgba(255,255,255,.7);line-height:1.4}
+  .site b{display:block;color:#fff;font-size:28px;letter-spacing:-.01em}
+  /* story extras */
+  .steps{display:none}
+  .story .steps{display:grid;gap:14px;margin:40px 0 0}
+  .steps div{display:flex;align-items:center;gap:18px;background:rgba(10,10,10,.55);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:20px 24px;font-size:26px;font-weight:600;backdrop-filter:blur(8px)}
+  .steps div b{width:54px;height:54px;border-radius:16px;background:var(--y);color:var(--ink);display:grid;place-items:center;font-family:"Bricolage Grotesque";font-size:26px;flex:none}
+  .story .bot{flex-direction:column;align-items:stretch;gap:26px}
+  .story .cta{justify-content:center;font-size:32px;padding:26px}
+  .story .site{text-align:center}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="bg"></div>
+  <div class="top">
+    <div class="logo"><img src="../assets/img/logo.svg" alt=""><div><b>Casa Shine</b><small>CAR WASH · CASABLANCA</small></div></div>
+    <div class="badge">dès<span>60 MAD</span></div>
+  </div>
+  <div class="mid">
+    <span class="tag"><i></i>Lavage à la main · Maârif ou à domicile</span>
+    <h1>Votre voiture<br>mérite de <em>briller.</em></h1>
+    <div class="chips"><span>Lavage extérieur</span><span>Intérieur complet</span><span>Polissage</span><span>Céramique</span></div>
+    <div class="steps">
+      <div><b>1</b>Réservez sur WhatsApp en 30 s</div>
+      <div><b>2</b>On vient chez vous, partout à Casa</div>
+      <div><b>3</b>Photos avant / après, paiement après</div>
+    </div>
+  </div>
+  <div class="bot">
+    <div class="cta"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.3-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>Réservez · +212 600 000 000</div>
+    <div class="site"><b>casa-shine.vercel.app</b>7j/7 · 8h – 21h</div>
+  </div>
+</div>
+<script>
+  if (location.hash === "#story") { document.documentElement.classList.add("story"); document.body.classList.add("story"); }
+</script>
+</body>
+</html>
